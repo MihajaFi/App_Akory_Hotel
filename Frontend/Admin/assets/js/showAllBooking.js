@@ -36,3 +36,4 @@ function addAllinformation() {
     .catch(data=>alert(data))
    }
   addAllinformation() ;
+

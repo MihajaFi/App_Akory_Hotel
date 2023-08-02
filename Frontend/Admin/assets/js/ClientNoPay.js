@@ -7,14 +7,14 @@ function showAllClientNopay(data) {
       <td>${values.id_client}</td>
       <td>${values.name}</td>
       <td>${values.email}</td>
-      
+      <td>${values.total_amount_status}</td>
     </tr>`;
     body_table.innerHTML += dataInitial;
     });
 }
 
 function infoClientNoPay(){
-    fetch("http://localhost:5000/ClientNoPay")
+    fetch("http://localhost:5000/payment")
 .then((data) => {
     return data.json();
 })
