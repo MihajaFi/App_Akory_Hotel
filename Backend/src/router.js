@@ -139,3 +139,41 @@ router.get("/roombook", (req, res) => {
       res.send(data.rows);
   });
 });
+
+// Add staff
+
+router.post("/staff", (req,res) =>{
+  const {
+    Name,LastName,Email,Phone,Country,Password,CPassword
+  } = req.body;
+
+  if (Name === '' || Email === '' || (Password === CPassword)) {
+    res.status(400).json({ message: 'Fill the proper details' });
+  }else{
+    const sql = `INSERT INTO receptionist("first_name","last_name","Password","email","work_contact","country") 
+    VALUES ('${Name}','${LastName}','${Password}','${Email}',${Phone},'${Country}')`;
+
+    pool.query(sql, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Reservation successful' });
+      }
+    });
+  }
+})
+
+// show all staff 
+router.get("/staff", (req, res) => {
+  const countQuery = `
+  SELECT id_employee, first_name, last_name, email, work_contact, country FROM receptionist ;
+  `;
+  pool.query(countQuery, (err, data) => {
+      if (err) {
+          console.error(err.message);
+          return res.status(500).send('Erreur de serveur');
+      }
+      res.send(data.rows);
+  });
+});
