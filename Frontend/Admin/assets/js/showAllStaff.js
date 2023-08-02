@@ -9,7 +9,8 @@ function showAllStaff(data) {
       <td>${values.last_name}</td>
       <td>${values.email}</td>
       <td>${values.work_contact}</td>
-      <td>${values.country}</td>
+      <td>${values.hotel_name}</td>
+      <td>${values.province_name}</td>
     </tr>`;
     body_table.innerHTML += dataInitial;
     });
