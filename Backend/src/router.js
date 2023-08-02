@@ -177,3 +177,22 @@ router.get("/staff", (req, res) => {
       res.send(data.rows);
   });
 });
+
+router.get("/payment",(req,res) => {
+  const countQuery = 
+  ` SELECT client.id_client , client.name , client.email  ,payment.total_amount_status FROM client 
+  INNER JOIN payment ON payment.id_client = client.id_client 
+  ;`;
+  pool.query(countQuery,(err,data) => {
+    if(err){
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+
+});
+
+router.get("/payment",(req,res) =>{
+  
+})
