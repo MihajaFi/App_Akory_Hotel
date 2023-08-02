@@ -2,18 +2,17 @@
 CREATE DATABASE hotel;
 
 \c hotel;
-
 CREATE TABLE hotel(
-        id_hotel   Varchar (200) PRIMARY KEY,
+        id_hotel   serial PRIMARY KEY,
         hotel_name Varchar (200) NOT NULL ,
         "address"    Varchar (200) NOT NULL
 );
 
 CREATE TABLE province_available(
-        id_province   Int PRIMARY KEY ,
+        id_province   serial PRIMARY KEY ,
         province_name Varchar (100) NOT NULL ,
         code_province Int ,
-        id_hotel Varchar(200) references hotel(id_hotel)
+        id_hotel int references hotel(id_hotel)
 );
 
 CREATE TABLE receptionist(
@@ -25,6 +24,7 @@ CREATE TABLE receptionist(
         work_contact bigint NOT NULL,
         id_province int references province_available(id_province)
 );
+
 
 CREATE TABLE Client(
         id_client         serial PRIMARY KEY ,
@@ -40,3 +40,9 @@ CREATE TABLE Client(
         id_employee int references receptionist(id_employee)
 );
 
+CREATE TABLE signup (
+  UserID SERIAL PRIMARY KEY,
+  Username VARCHAR(255) NOT NULL,
+  Email VARCHAR(255) NOT NULL,
+  Password VARCHAR(255) NOT NULL
+);
