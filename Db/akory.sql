@@ -9,28 +9,75 @@ CREATE TABLE emp_login (
   "Emp_Password" varchar(50) NOT NULL,
   PRIMARY KEY (empid)
 );
+--Receptioniste
+
+
+CREATE TABLE receptionist(
+        id_employee  serial PRIMARY KEY ,
+        first_name   Varchar (200) NOT NULL ,
+        last_name    Varchar (200) NOT NULL ,
+        "Password"     Varchar (50) NOT NULL ,
+        email        Varchar (200) NOT NULL ,
+        work_contact bigint NOT NULL,
+        country varchar(200) NOT NULL
+);
 
 -- Dumping data for table emp_login
 INSERT INTO emp_login (empid, "Emp_Email", "Emp_Password") VALUES
 (1, 'Admin@gmail.com', '1234');
 
 -- Table structure for table payment
-CREATE TABLE payment (
-  id SERIAL NOT NULL,
-  "Name" varchar(30) NOT NULL,
-  "Email" varchar(30) NOT NULL,
-  "RoomType" varchar(30) NOT NULL,
-  "Bed" varchar(30) NOT NULL,
-  "NoofRoom" int NOT NULL,
-  "cin" date NOT NULL,
-  "cout" date NOT NULL,
-  "noofdays" int NOT NULL,
-  "roomtotal" numeric(8,2) NOT NULL,
-  "bedtotal" numeric(8,2) NOT NULL,
-  "meal" varchar(30) NOT NULL,
-  "mealtotal" numeric(8,2) NOT NULL,
-  "finaltotal" numeric(8,2) NOT NULL,
-  PRIMARY KEY (id)
+-- CREATE TABLE payment (
+--   id SERIAL NOT NULL,
+--   "Name" varchar(30) NOT NULL,
+--   "Email" varchar(30) NOT NULL,
+--   "RoomType" varchar(30) NOT NULL,
+--   "Bed" varchar(30) NOT NULL,
+--   "NoofRoom" int NOT NULL,
+--   "cin" date NOT NULL,
+--   "cout" date NOT NULL,
+--   "noofdays" int NOT NULL,
+--   "roomtotal" numeric(8,2) NOT NULL,
+--   "bedtotal" numeric(8,2) NOT NULL,
+--   "meal" varchar(30) NOT NULL,
+--   "mealtotal" numeric(8,2) NOT NULL,
+--   "finaltotal" numeric(8,2) NOT NULL,
+--   PRIMARY KEY (id)
+-- );
+CREATE TABLE payment(
+    id_payment serial PRIMARY KEY,
+    payement_date date NOT NULL,
+    amount_paid float NOT NULL,
+    number_night int NOT NULL, 
+    room_occupied int NOT NULL,
+    deadline_payment Varchar(200) NOT NULL,
+    lending_status Boolean NOT NULL,
+    total_amount_status Boolean NOT NULL ,
+    id_client INT references client(id_client)
+);
+
+ SELECT * FROM client   
+ INNER JOIN payment ON payment.id_client = client.id_client 
+ WHERE total_amount_status = false ;
+--Table client
+CREATE TABLE Client(
+        id_client         Int PRIMARY KEY ,
+        "name"              Varchar (200) NOT NULL ,
+        last_name         Varchar (200) NOT NULL ,
+        principal_contact Varchar (50) NOT NULL ,
+        "address"          Varchar (200) NOT NULL ,
+        emergency_number  Varchar (50) NOT NULL ,
+        gender            Char (1) NOT NULL ,
+        CIN               Int NOT NULL ,
+        Email             Varchar (100) NOT NULL ,
+        "Password"          Varchar (50) NOT NULL 
+);
+--Payment Method 
+CREATE TABLE payement_method(
+        id_payement_method serial PRIMARY KEY,
+        mobile_money       Bool NOT NULL ,
+        credit_card        Bool NOT NULL ,
+        cash               Bool NOT NULL
 );
 
 -- Dumping data for table payment
@@ -93,14 +140,4 @@ CREATE TABLE signup (
   Username VARCHAR(255) NOT NULL,
   Email VARCHAR(255) NOT NULL,
   Password VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE receptionist(
-        id_employee  serial PRIMARY KEY ,
-        first_name   Varchar (200) NOT NULL ,
-        last_name    Varchar (200) NOT NULL ,
-        "Password"     Varchar (50) NOT NULL ,
-        email        Varchar (200) NOT NULL ,
-        work_contact bigint NOT NULL,
-        country varchar(200) NOT NULL
 );
