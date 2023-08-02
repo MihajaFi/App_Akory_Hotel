@@ -129,7 +129,10 @@ router.post('/guestdetailsubmit', (req, res) => {
 // show all booking 
 router.get("/roombook", (req, res) => {
   const countQuery = `
-  SELECT * FROM roombook ;
+  select reservation.id_reservation , client.name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
+from reservation 
+inner join client ON reservation.id_client = client.id_client ;
+
   `;
   pool.query(countQuery, (err, data) => {
       if (err) {
@@ -139,7 +142,6 @@ router.get("/roombook", (req, res) => {
       res.send(data.rows);
   });
 });
-
 // Add staff
 
 router.post("/staff", (req,res) =>{

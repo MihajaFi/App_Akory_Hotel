@@ -14,6 +14,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="../../Admin/assets/css/roombook.css">
     <script src="../assets/js/showAllBooking.js" defer></script>
+    <script src="../../Admin/assets/js/roombook.js" defer></script>
     <title>Akory - Admin</title>
 </head>
 
@@ -90,39 +91,32 @@
         </form>
     </div>
 
-    <!-- ================================================= -->
-    <div class="searchsection">
-        <input type="text" name="search_bar" id="search_bar" placeholder="search..." onkeyup="searchFun()">
-        <button class="adduser" id="adduser" onclick="adduseropen()"><i class="fa-solid fa-bookmark"></i> Add</button>
-        <form action="./exportdata.php" method="post">
-            <button class="exportexcel" id="exportexcel" name="exportexcel" type="submit"><i class="fa-solid fa-file-arrow-down"></i></button>
-        </form>
-    </div>
-
-    <div class="roombooktable" class="table-responsive-xl">
-        <table class="table table-bordered" id="table-data">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Country</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Type of Room</th>
-                    <th scope="col">Type of Bed</th>
-                    <th scope="col">No of Room</th>
-                    <th scope="col">Meal</th>
-                    <th scope="col">Check-In</th>
-                    <th scope="col">Check-Out</th>
-                    <th scope="col">No of Day</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" class="action">Action</th>
-                </tr>
-            </thead>
-
-            <tbody id="table_body"></tbody>
-        </table>
-    </div>
+        <!-- ================================================= -->
+        <div class="searchsection">
+            <input type="text" name="search_bar" id="search_bar" placeholder="search...(id or name)" onkeyup="searchFun()">
+            <button class="adduser" id="adduser" onclick="adduseropen()"><i class="fa-solid fa-bookmark"></i> Add</button>
+            <form action="" method="post">
+                <button class="exportexcel" id="exportexcel" name="exportexcel" type="submit"><i class="fa-solid fa-file-arrow-down"></i></button>
+            </form>
+        </div>
+    
+        <div class="roombooktable" class="table-responsive-xl">
+            <table class="table table-bordered" id="table-data">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Check-In</th>
+                        <th scope="col">Check-Out</th>
+                        <th scope="col">Number of person</th>
+                        <th scope="col">CIN</th>
+                    </tr>
+                </thead>
+    
+                <tbody id="table_body"></tbody>
+            </table>
+        </div>
 </body>
 
 </html>
