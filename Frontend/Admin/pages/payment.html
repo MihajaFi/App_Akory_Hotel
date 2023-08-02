@@ -13,84 +13,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 	<!-- css for table and search bar -->
 	<link rel="stylesheet" href="../assets/css/roombook.css">
+    <script src="../assets/js/ClientNoPay.js" defer></script>
 </head>
 
 <body>
 	<div class="searchsection">
-        <input type="text" name="search_bar" id="search_bar" placeholder="search..." onkeyup="searchFun()">
+        <input type="text" name="search_bar" id="search_bar" placeholder="search false" onkeyup="searchFun()">
     </div>
 
-    <div class="roombooktable" class="table-responsive-xl">
-        <table class="table table-bordered" id="table-data">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Room Type</th>
-                    <th scope="col">Bed Type</th>
-                    <th scope="col">Check In</th>
-                    <th scope="col">Check Out</th>
-					<th scope="col">No of Day</th>
-                    <th scope="col">No of Room</th>
-					<th scope="col">Meal Type</th>
-                    <th scope="col">Room Rent</th>
-                    <th scope="col">Bed Rent</th>
-                    <th scope="col">Meals</th>
-					<th scope="col">Total Bill</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>Superior Room</td>
-                    <td>King</td>
-					<td>2023-07-01</td>
-                    <td>2023-07-04</td>
-					<td>3</td>
-                    <td>2</td>
-                    <td>Breakfast</td>
-                    <td>2000</td>
-					<td>500</td>
-					<td>300</td>
-					<td>2800</td>
-                    <td class="action">
-                        <a href="#"><button class="btn btn-primary"><i class="fa-solid fa-print"></i>Print</button></a>
-						<a href="#"><button class="btn btn-danger">Delete</button></a>
-                    </td>
-                </tr>
-                <!-- Ajoutez ici d'autres lignes de données -->
-            </tbody>
-        </table>
+    <div class="roombooktable" class="table-responsive-xl">            
+            <table class="table table-bordered" id="table-data">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Total_amount_status</th>
+                    </tr>
+                </thead>
+    
+                <tbody id="table_body"></tbody>
+            </table>
     </div>
 </body>
 
 <script>
     //search bar logic using js
-    const searchFun = () =>{
-        let filter = document.getElementById('search_bar').value.toUpperCase();
+    const searchFun = () => {
+    let filter = document.getElementById('search_bar').value.trim().toUpperCase(); // Utiliser trim() pour supprimer les espaces au début et à la fin
+    let myTable = document.getElementById("table-data");
+    let tr = myTable.getElementsByTagName('tr');
 
-        let myTable = document.getElementById("table-data");
+    for (let i = 0; i < tr.length; i++) {
+        let td = tr[i].getElementsByTagName('td')[1];
+        let tdStatus = tr[i].getElementsByTagName('td')[3];
 
-        let tr = myTable.getElementsByTagName('tr');
+        if (td) {
+            let textValue = td.textContent || td.innerHTML;
+            let statusValue = tdStatus.textContent || tdStatus.innerHTML;
 
-        for(var i = 0; i< tr.length;i++){
-            let td = tr[i].getElementsByTagName('td')[1];
-
-            if(td){
-                let textvalue = td.textContent || td.innerHTML;
-
-                if(textvalue.toUpperCase().indexOf(filter) > -1){
+            if (filter === "FALSE") { // Vérifier si le filtre est égal à "FALSE" spécifiquement
+                if (statusValue.toUpperCase() === "FALSE") {
                     tr[i].style.display = "";
-                }else{
+                } else {
+                    tr[i].style.display = "none";
+                }
+            } else { // Si le filtre n'est pas "FALSE", effectuer la recherche normale
+                if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
                     tr[i].style.display = "none";
                 }
             }
         }
-
     }
+}
+
 
 </script>
 
