@@ -10,9 +10,9 @@ router.post("/index", (req, res) => {
   if (Emp_Email && Emp_Password) {
     // Login/Sign-in Logic
     const sql = `
-      SELECT * 
-      FROM emp_login
-      WHERE "Emp_Email" = $1 AND "Emp_Password" = $2  
+      SELECT email, Password
+      FROM receptionist
+      WHERE "email" = $1 AND "Password" = $2  
     `;
 
     pool.query(sql, [Emp_Email, Emp_Password], (err, result) => {
@@ -160,7 +160,7 @@ router.post("/staff", (req,res) =>{
         console.error('Error executing query:', error);
         res.status(500).json({ message: 'Something went wrong' });
       } else {
-        res.status(200).json({ message: 'Insert successfully' });
+        res.status(200).json({ message: 'Inserted successfully' });
       }
     });
   }
@@ -178,7 +178,7 @@ router.get("/staff", (req, res) => {
   JOIN 
       province_available p ON r.id_province = p.id_province
   JOIN 
-      hotel h ON p.id_hotel = h.id_hotel;
+      hotel h ON p.id_hotel = h.id_hotel ORDER BY r.id_employee ASC;
   `;
   pool.query(countQuery, (err, data) => {
       if (err) {
