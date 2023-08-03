@@ -148,14 +148,27 @@
       <div id="searchhotel">
         <select name="Country" class="selectinput" id="prov">
           <option value selected id="vince">Select your country</option>
-          <option value="1">Antananarivo</option>
-          <option value="2">Toamasina</option>
-          <option value="3">Mahajanga</option>
-          <option value="4">Fianarantsoa</option>
-          <option value="5">Toliara</option>
-          <option value="6">Antsiranana</option>
+          <option value="1" id="tana">Antananarivo</option>
+          <option value="2" id="toma">Toamasina</option>
+          <option value="3" id="maja">Mahajanga</option>
+          <option value="4" id="fiana">Fianarantsoa</option>
+          <option value="5" id="toli">Toliara</option>
+          <option value="6" id="antsira">Antsiranana</option>
         </select>
         <button class="btn btn btn-primary" id="btnsearch" type="submit">search</button>
+      </div>
+      <div>
+        <table class="table table-bordered" id="table-data">
+          <thead>
+              <tr>
+                  <th scope="col" id="Id">Id_hotel</th>
+                  <th scope="col" id="name">hotel_name</th>
+                  <th scope="col" id="address">Address</th>
+              </tr>
+          </thead>
+
+          <tbody id="prohotel"></tbody>
+      </table>
       </div>
       <div class="roomselect">
         <div class="roombox">
