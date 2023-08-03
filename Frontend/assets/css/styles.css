@@ -139,12 +139,14 @@ ul li a:hover{
     -webkit-text-fill-color: transparent;
 }
 
-#addsearch{
+#prov{
     width: 200px;
     border-radius: 1%;
 }
 #btnsearch{
+    margin-top: 0.5%;
     margin-left: 0.3%;
+    height: 45px;
 }
 #searchhotel{
     display: flex;

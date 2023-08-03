@@ -42,23 +42,11 @@ function showAllhotel(data) {
 
   data.map((values)=> {
       let dataInitial = "";
-      dataInitial += `
-      <div class="roombox">
-          <div class="hotelphoto h1"></div>
-          <div class="roomdata">
-            <h4 id="hotel_name">${values.id_hotel}</h4>
-            <h6 id="provin">T${values.hotel_name}</h6>
-            <h6 id="adress">${values.address}</h6>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-              <i class="fa-solid fa-spa"></i>
-              <i class="fa-solid fa-dumbbell"></i>
-              <i class="fa-solid fa-person-swimming"></i>
-            </div>
-            <button class="btn btn-primary bookbtn" id="butt" onclick="openbookbox()">Book</button>
-          </div>
-        </div>`;
+      dataInitial += `<tr>
+      <td>${values.id_hotel}</td>
+      <td>${values.hotel_name}</td>
+      <td>${values.address}</td> 
+      </tr>`;
   body_table.innerHTML += dataInitial;
   });
 }
