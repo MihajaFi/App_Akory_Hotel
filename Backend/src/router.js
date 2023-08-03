@@ -204,20 +204,16 @@ router.get("/Sum", (req, res) => {
   });
 });
 
-router.get("/home",(req,res)=>{
-  const {tana,toma,maja,fiana,toli,antsira} = req.body;
-  const sql =`SELECT hotel.*
-  FROM hotel INNER
-  JOIN province_available pa ON hotel.id_hotel = pa.id_province
-  WHERE pa.province_name = $1 OR pa.province_name= $2OR pa.province_name= $3
-  OR pa.province_name= $4 OR pa.province_name= $5 OR pa.province_name= $6
-  ;`
-  pool.query(sql,[tana,toma,maja,fiana,toli,antsira],(err,data) =>{
+router.get("/statusreserved",(req,res)=>{
+  const sql =`SELECT client.name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
+  FROM client
+  INNER JOIN reservation ON  client.id_client = reservation.id_client
+  GROUP BY client.id_client;`
+  pool.query(sql,(err,data) =>{
     if (err) {
       console.log(err.message);
       return res.status(500).send('Erreur de serveur');
     }
     res.send(data.rows)
-    res.json({ success: true, message: 'Afficher' });
   })
 })
