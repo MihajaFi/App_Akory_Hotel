@@ -27,7 +27,7 @@ function UserSignIn(data){
         }) 
         .then((data) => {
            if (data.success){
-            window.location.href = 'Page/home.html'
+            window.location.href = 'page/home.html'
            }
           })
           .catch((error) => {

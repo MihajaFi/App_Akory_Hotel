@@ -179,3 +179,13 @@ router.get("/Sum", (req, res) => {
     res.send(data.rows);
   });
 });
+
+router.get("/statusreserved",(req,res)=>{
+  pool.query(AllBasic.getstatuscountreserved,(err,data) =>{
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows)
+  })
+})
