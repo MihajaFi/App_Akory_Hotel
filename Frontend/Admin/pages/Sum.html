@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="../assets/js/SumMobileMoney.js" defer></script>
+    <script src="../assets/js/CountReservationByHotel.js" defer></script>
 </head>
 <body>
-    <table class="table table-bordered" id="table-data">
+    <table class="table table-bordered" id="table-reservations">
         <thead>
             <tr>
                 <th scope="col">Total_amount_status</th>
@@ -15,6 +16,17 @@
         </thead>
 
         <tbody id="table_body"></tbody>
+    </table>
+    <table class="table table-bordered" id="table-hotel">
+        <thead>
+            <tr>
+                <th scope="col">id_hotel</th>
+                <th scope="col">hotel_name</th>
+                <th scope="col">total_reservations</th>
+            </tr>
+        </thead>
+
+        <tbody id="table_hotel"></tbody>
     </table>
 </body>
 </html>

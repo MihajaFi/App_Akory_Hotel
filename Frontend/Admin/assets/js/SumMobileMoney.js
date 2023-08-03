@@ -1,5 +1,5 @@
 function Sum(data) {
-    const body_table = document.querySelector('#table_sum');
+    const body_table = document.querySelector('#table_body');
   
     data.map((values)=> {
         let dataInitial = "";
@@ -24,16 +24,16 @@ function Sum(data) {
    }
   addAllinformation() ;
 
-  const showEmptyTable = () => {
-    const emptyTableDiv = document.getElementById('emptyTable');
-    const mainTableDiv = document.querySelector('.roombooktable');
+//   const showEmptyTable = () => {
+//     const emptyTableDiv = document.getElementById('emptyTable');
+//     const mainTableDiv = document.querySelector('.roombooktable');
 
-    // Vérifier l'état actuel du div vide (affiché ou masqué)
-    if (emptyTableDiv.style.display === 'none') {
-        emptyTableDiv.style.display = 'block';
-        mainTableDiv.style.display = 'none'; // Masquer la table principale (si nécessaire)
-    } else {
-        emptyTableDiv.style.display = 'none';
-        mainTableDiv.style.display = 'block'; // Réafficher la table principale (si nécessaire)
-    }
-}   
+//     // Vérifier l'état actuel du div vide (affiché ou masqué)
+//     if (emptyTableDiv.style.display === 'none') {
+//         emptyTableDiv.style.display = 'block';
+//         mainTableDiv.style.display = 'none'; // Masquer la table principale (si nécessaire)
+//     } else {
+//         emptyTableDiv.style.display = 'none';
+//         mainTableDiv.style.display = 'block'; // Réafficher la table principale (si nécessaire)
+//     }
+// }   
