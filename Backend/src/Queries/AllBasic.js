@@ -51,6 +51,14 @@ const getPaymentByMobileMoney = `
         WHERE payment_method.mobile_money = true; 
 ` ; 
 
+
+const getCountReservationByHotel = `
+SELECT h.id_hotel, h.hotel_name, COUNT(r.id_reservation) AS total_reservations
+FROM hotel h
+LEFT JOIN room rm ON h.id_hotel = rm.id_hotel
+LEFT JOIN reservation r ON rm.id_reservation = r.id_reservation
+GROUP BY h.id_hotel, h.hotel_name;
+`
 const getAllSignupStaff = `
 SELECT email, password
 FROM receptionist
@@ -70,13 +78,8 @@ FROM signup
 WHERE Email = $1 AND Password = $2
 `;
 
-const getCountReservationByHotel = `
-SELECT h.id_hotel, h.hotel_name, COUNT(r.id_reservation) AS total_reservations
-FROM hotel h
-LEFT JOIN room rm ON h.id_hotel = rm.id_hotel
-LEFT JOIN reservation r ON rm.id_reservation = r.id_reservation
-GROUP BY h.id_hotel, h.hotel_name;
-`
+
+
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
