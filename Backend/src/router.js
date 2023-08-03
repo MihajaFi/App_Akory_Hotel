@@ -192,8 +192,11 @@ router.get("/staff", (req, res) => {
 
 router.get("/payment", (req, res) => {
   const countQuery = 
-    `SELECT client.id_client, client.name, client.email, payment.total_amount_status FROM client
-    INNER JOIN payment ON payment.id_client = client.id_client;`;
+    `SELECT client.id_client, client.name, client.email
+    FROM client
+    LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
+    WHERE payment.id_employee IS NULL;
+    `;
   
   pool.query(countQuery, (err, data) => {
     if (err) {
