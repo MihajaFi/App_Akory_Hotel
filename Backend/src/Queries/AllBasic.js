@@ -74,13 +74,12 @@ const AllBasic = {
     getAllRecptionist,
     getAllReservation,
     getClientNotPaid,
-    getDetailRoomOccupiedByClient,
-    getAllSignupUser,
-    getCheckEmail,
     getAllSignupStaff,
+    getCheckEmail,
+    getAllSignupUser,
+    getDetailRoomOccupiedByClient,
     getCountClientCancelled,
-    getPaymentByMobileMoney
-
+    getPaymentByMobileMoney,
 };
 
 export default AllBasic;
