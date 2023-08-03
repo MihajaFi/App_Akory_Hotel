@@ -1,5 +1,5 @@
 function Sum(data) {
-    const body_table = document.querySelector('#table_body');
+    const body_table = document.querySelector('#table_sum');
   
     data.map((values)=> {
         let dataInitial = "";
