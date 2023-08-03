@@ -9,14 +9,7 @@ router.post("/index", (req, res) => {
   const { Emp_Email, Emp_Password } = req.body;
   
   if (Emp_Email && Emp_Password) {
-    // Login/Sign-in Logic
-    const sql = `
-      SELECT * 
-      FROM emp_login
-      WHERE "Emp_Email" = $1 AND "Emp_Password" = $2  
-    `;
-
-    pool.query(sql, [Emp_Email, Emp_Password], (err, result) => {
+    pool.query(AllBasic.getAllSignupStaff, [Emp_Email, Emp_Password], (err, result) => {
       if (err) {
         console.error(err.message);
         return res.status(500).send('Erreur de serveur');
@@ -33,15 +26,7 @@ router.post("/index", (req, res) => {
     if (Username === "" || Email === "" || Password === "") {
       return res.status(400).json({ success: false, message: "Remplissez correctement les champs" });
     }
-
-    // Check email 
-    const emailQuery = `
-      SELECT *
-      FROM signup 
-      WHERE Email = $1
-    `;
-
-    pool.query(emailQuery ,[Email] , (err , result ) =>{
+    pool.query(AllBasic.getCheckEmail ,[Email] , (err , result ) =>{
       if (err){
         console.error(err.message) ;
         return res.status(500).send('Erreur de serveur') ;
@@ -66,18 +51,9 @@ router.post("/index", (req, res) => {
       }
     });
   } else {
-     // Login/Sign-in Logic
      const { Email, Password } = req.body;
 
-     // Perform validation, e.g., check if Email and Password are provided
- 
-     const selectQuery = `
-       SELECT *
-       FROM signup
-       WHERE Email = $1 AND Password = $2
-     `;
- 
-     pool.query(selectQuery, [Email, Password], (err, result) => {
+     pool.query(AllBasic.getAllSignupUser, [Email, Password], (err, result) => {
        if (err) {
          console.error(err.message);
          return res.status(500).send('Erreur de serveur');
@@ -148,7 +124,7 @@ router.post("/staff", (req,res) =>{
   if (Name === '' || Email === '' || (Password === CPassword)) {
     res.status(400).json({ message: 'Fill the proper details' });
   }else{
-    const sql = `INSERT INTO receptionist("first_name","last_name","Password","email","work_contact","id_province") 
+    const sql = `INSERT INTO receptionist("first_name","last_name","password","email","work_contact","id_province") 
     VALUES ('${Name}','${LastName}','${Password}','${Email}',${Phone}, ${Country})`;
 
     pool.query(sql, (error, result) => {
@@ -156,7 +132,7 @@ router.post("/staff", (req,res) =>{
         console.error('Error executing query:', error);
         res.status(500).json({ message: 'Something went wrong' });
       } else {
-        res.status(200).json({ message: 'Insert successfully' });
+        res.status(200).json({ message: 'Inserted successfully' });
       }
     });
   }

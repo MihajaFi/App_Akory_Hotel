@@ -19,9 +19,7 @@ function AddStaff(data) {
     })
     .then((response) => {
         if (response.ok) {
-          alert('sign up successfully')
-        //   loginpage() ;
-          // Effectuer d'autres actions après l'insertion réussie
+          alert('Inserted successfully')
         } else {
           throw new Error("Erreur lors de l'insertion");
         }
