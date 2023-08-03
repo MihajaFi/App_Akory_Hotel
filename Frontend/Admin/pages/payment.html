@@ -14,11 +14,13 @@
 	<!-- css for table and search bar -->
 	<link rel="stylesheet" href="../assets/css/roombook.css">
     <script src="../assets/js/ClientNoPay.js" defer></script>
+    <script src="../assets/js/SumMobileMoney.js" defer></script>
 </head>
 
 <body>
 	<div class="searchsection">
         <input type="text" name="search_bar" id="search_bar" placeholder="search false" onkeyup="searchFun()">
+        <button id="mobileMoneyButton">Mobile Money</button>
     </div>
 
     <div class="roombooktable" class="table-responsive-xl">            
@@ -34,6 +36,17 @@
     
                 <tbody id="table_body"></tbody>
             </table>
+            <div class="roombooktable" class="table-responsive-xl">            
+                <table class="table table-bordered" id="table-data">
+                    <thead>
+                        <tr>
+                            <th scope="col">Total_amount_status</th>
+                        </tr>
+                    </thead>
+            
+                    <tbody id="table_sum"></tbody>
+                </table>
+            </div>
     </div>
 </body>
 
