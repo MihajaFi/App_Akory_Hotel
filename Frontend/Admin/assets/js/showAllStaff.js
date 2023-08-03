@@ -36,13 +36,21 @@ const searchFun = () => {
   for (var i = 0; i < tr.length; i++) {
       let tdId = tr[i].getElementsByTagName('td')[0]; // Première colonne (ID de réservation)
       let tdName = tr[i].getElementsByTagName('td')[1]; // Deuxième colonne (Nom)
+      let tdLname = tr[i].getElementsByTagName('td')[2];
+      let tdHotel = tr[i].getElementsByTagName('td')[5];
+      let tdProvince = tr[i].getElementsByTagName('td')[6];
 
-      if (tdId || tdName) {
+      if (tdId || tdName || tdHotel || tdProvince || tdLname) {
           let textId = tdId.textContent || tdId.innerHTML;
           let textName = tdName.textContent || tdName.innerHTML;
+          let textHotel = tdHotel.textContent || tdHotel.innerHTML;
+          let textProvince = tdProvince.textContent || tdProvince.innerHTML;
+          let textLname = tdLname.textContent || tdLname.innerHTML;
 
           // Recherche dans l'ID de réservation OU le nom
-          if (textId.toUpperCase().indexOf(filter) > -1 || textName.toUpperCase().indexOf(filter) > -1) {
+          if (textId.toUpperCase().indexOf(filter) > -1 || textName.toUpperCase().indexOf(filter) > -1 ||
+          textHotel.toUpperCase().indexOf(filter) > -1 || textProvince.toUpperCase().indexOf(filter) > -1 ||
+          textLname.toUpperCase().indexOf(filter) > -1){
               tr[i].style.display = "";
           } else {
               tr[i].style.display = "none";

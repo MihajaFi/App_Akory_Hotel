@@ -15,7 +15,7 @@ const getAllRecptionist = `
         JOIN 
         province_available p ON r.id_province = p.id_province
         JOIN 
-        hotel h ON p.id_hotel = h.id_hotel;
+        hotel h ON p.id_hotel = h.id_hotel ORDER BY r.id_employee ASC;
 ` ;
 
 const getAllReservation = `
@@ -58,10 +58,33 @@ LEFT JOIN room rm ON h.id_hotel = rm.id_hotel
 LEFT JOIN reservation r ON rm.id_reservation = r.id_reservation
 GROUP BY h.id_hotel, h.hotel_name;
 `
+const getAllSignupStaff = `
+SELECT email, password
+FROM receptionist
+WHERE "email" = $1 AND "password" = $2 ; 
+`;
+
+const getCheckEmail = `
+SELECT *
+FROM signup 
+WHERE Email = $1 ;
+`;
+
+
+const getAllSignupUser =  `
+SELECT *
+FROM signup
+WHERE Email = $1 AND Password = $2
+`;
+
+
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
     getClientNotPaid,
+    getAllSignupStaff,
+    getCheckEmail,
+    getAllSignupUser,
     getDetailRoomOccupiedByClient,
     getCountClientCancelled,
     getPaymentByMobileMoney,
