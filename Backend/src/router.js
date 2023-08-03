@@ -183,3 +183,13 @@ router.get("/payment", (req, res) => {
     res.send(data.rows);
   });
 });
+
+router.get("/canceled", (req, res) => {
+  pool.query(AllBasic.getCountClientCancelled, (err, data) => {
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
