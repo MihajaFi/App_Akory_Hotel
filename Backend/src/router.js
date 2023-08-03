@@ -203,3 +203,20 @@ router.get("/payment", (req, res) => {
     res.send(data.rows);
   });
 });
+
+router.get("/home",(req,res)=>{
+  const {vince} = req.body;
+  const sql =`SELECT hotel.*
+  FROM hotel INNER
+  JOIN province_available pa ON hotel.id_hotel = pa.id_province
+  WHERE pa.province_name = $1 OR pa.province_name= $2 OR pa.province_name= $3 
+  OR pa.province_name= $4 OR pa.province_name= $5 OR pa.province_name= $6
+  ;`
+  pool.query(sql,[vince],(err,data) =>{
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows)
+  })
+})

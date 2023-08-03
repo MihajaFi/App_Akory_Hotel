@@ -139,6 +139,29 @@ ul li a:hover{
     -webkit-text-fill-color: transparent;
 }
 
+#addsearch{
+    width: 200px;
+    border-radius: 1%;
+}
+#btnsearch{
+    margin-left: 0.3%;
+}
+#searchhotel{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2%;
+    margin-left: 2%;
+}
+#province{
+    font-size: 50px;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 2px;
+    /* text gradiant */
+    background: -webkit-linear-gradient(317deg, rgba(0, 60, 255, 0.81) 0%, rgb(255 0 123) 70%);
+    background: -webkit-linear-gradient(317deg, rgba(1, 5, 10, 0.81) 9%, #e91f04 70%);
+    -webkit-background-clip: text;
+}
 /* secondsection */
 
 #secondsection{
@@ -176,7 +199,7 @@ ul li a:hover{
 }
 
 .roomselect .roombox{
-    height: 100%;
+    height: 400px;
     width: 300px;
     background-color:white;
     box-shadow: 5px 10px 18px;
@@ -210,7 +233,7 @@ ul li a:hover{
 
 .roomdata roomselect{
 color: rgb(207, 211, 255);
-font-size: 30px;
+font-size: 10px;
 }
 
 .sevices{
@@ -219,7 +242,8 @@ font-size: 30px;
 
 .services i{
     color:white;
-    margin: 7px;
+    margin: 0;
+    top: 0;
 }
 
 .bookbtn{
