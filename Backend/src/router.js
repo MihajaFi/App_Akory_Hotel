@@ -195,14 +195,7 @@ router.get("/canceled", (req, res) => {
 });
 
 router.get("/Sum", (req, res) => {
-  const countQuery = 
-    `SELECT SUM(amount_paid) AS total_mobile_money_payments
-    FROM payment
-    JOIN choose ON payment.id_payment = choose.id_payment
-    JOIN payment_method ON choose.id_payment_method = payment_method.id_payment_method
-    WHERE payment_method.mobile_money = true; `;
-  
-  pool.query(countQuery, (err, data) => {
+  pool.query(AllBasic.getPaymentByMobileMoney, (err, data) => {
     if (err) {
       console.log(err.message);
       return res.status(500).send('Erreur de serveur');
