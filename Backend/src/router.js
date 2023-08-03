@@ -152,15 +152,15 @@ router.post("/staff", (req,res) =>{
   if (Name === '' || Email === '' || (Password === CPassword)) {
     res.status(400).json({ message: 'Fill the proper details' });
   }else{
-    const sql = `INSERT INTO receptionist("first_name","last_name","Password","email","work_contact","country") 
-    VALUES ('${Name}','${LastName}','${Password}','${Email}',${Phone},'${Country}')`;
+    const sql = `INSERT INTO receptionist("first_name","last_name","Password","email","work_contact","id_province") 
+    VALUES ('${Name}','${LastName}','${Password}','${Email}',${Phone}, ${Country})`;
 
     pool.query(sql, (error, result) => {
       if (error) {
         console.error('Error executing query:', error);
         res.status(500).json({ message: 'Something went wrong' });
       } else {
-        res.status(200).json({ message: 'Reservation successful' });
+        res.status(200).json({ message: 'Insert successfully' });
       }
     });
   }
@@ -169,7 +169,16 @@ router.post("/staff", (req,res) =>{
 // show all staff 
 router.get("/staff", (req, res) => {
   const countQuery = `
-  SELECT id_employee, first_name, last_name, email, work_contact, country FROM receptionist ;
+  SELECT 
+      r.id_employee, r.first_name, r.last_name, r.email, r.work_contact, 
+      h.hotel_name,
+      p.province_name
+  FROM 
+      receptionist r
+  JOIN 
+      province_available p ON r.id_province = p.id_province
+  JOIN 
+      hotel h ON p.id_hotel = h.id_hotel;
   `;
   pool.query(countQuery, (err, data) => {
       if (err) {
@@ -177,5 +186,20 @@ router.get("/staff", (req, res) => {
           return res.status(500).send('Erreur de serveur');
       }
       res.send(data.rows);
+  });
+});
+
+
+router.get("/payment", (req, res) => {
+  const countQuery = 
+    `SELECT client.id_client, client.name, client.email, payment.total_amount_status FROM client
+    INNER JOIN payment ON payment.id_client = client.id_client;`;
+  
+  pool.query(countQuery, (err, data) => {
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
   });
 });
