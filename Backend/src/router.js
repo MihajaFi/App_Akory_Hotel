@@ -205,11 +205,7 @@ router.get("/Sum", (req, res) => {
 });
 
 router.get("/statusreserved",(req,res)=>{
-  const sql =`SELECT client.name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
-  FROM client
-  INNER JOIN reservation ON  client.id_client = reservation.id_client
-  GROUP BY client.id_client;`
-  pool.query(sql,(err,data) =>{
+  pool.query(AllBasic.getstatuscountreserved,(err,data) =>{
     if (err) {
       console.log(err.message);
       return res.status(500).send('Erreur de serveur');
