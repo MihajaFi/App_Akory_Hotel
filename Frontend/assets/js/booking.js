@@ -67,4 +67,5 @@ showAllinformation() ;
 document.getElementById("btnsearch").addEventListener('submit',function (event) {
   event.preventDefault();
   showAllhotel(event.target);
-})
+});
+
