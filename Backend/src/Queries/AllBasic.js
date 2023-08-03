@@ -32,13 +32,23 @@ const getDetailRoomOccupiedByClient = `
         INNER JOIN room_features ON room.id_features = room_features.id_features
         WHERE client.id_client = 9
         AND reservation.leaving_date >= CURRENT_DATE;
-`
+`; 
+
+const getCountClientCancelled = `
+        SELECT c.id_client, c.name, COUNT(ca.id_cancel) AS nombre_annulations
+        FROM client c
+        LEFT JOIN reservation r ON c.id_client = r.id_client
+        LEFT JOIN cancel ca ON r.id_reservation = ca.id_reservation
+        GROUP BY c.id_client, c.name;
+
+`;
 
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
     getClientNotPaid,
     getDetailRoomOccupiedByClient,
+    getCountClientCancelled,
 };
 
 export default AllBasic;
