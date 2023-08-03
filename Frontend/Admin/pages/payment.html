@@ -15,12 +15,26 @@
 	<link rel="stylesheet" href="../assets/css/roombook.css">
     <script src="../assets/js/ClientNoPay.js" defer></script>
     <script src="../assets/js/SumMobileMoney.js" defer></script>
+    <style>
+        /* Style pour cacher la mini-page au départ */
+        .mini-page {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+      </style>
 </head>
 
 <body>
 	<div class="searchsection">
         <input type="text" name="search_bar" id="search_bar" placeholder="search false" onkeyup="searchFun()">
-        <button id="mobileMoneyButton">Mobile Money</button>
+        <button onclick="afficherMiniPage()">Mobile Money</button>
     </div>
 
     <div class="roombooktable" class="table-responsive-xl">            
@@ -33,16 +47,14 @@
                         <th scope="col">Total_amount_status</th>
                     </tr>
                 </thead>
-
-                
-    
                 <tbody id="table_body"></tbody>
             </table>
-            <div class="roombooktable" class="table-responsive-xl">            
+
+            <div class="roombooktable" class="table-responsive-xl" class="mini-page" id="miniPage">            
                 <table class="table table-bordered" id="table-data">
                     <thead>
                         <tr>
-                            <th scope="col">Total_amount_status</th>
+                            <th scope="col">Total Amount By Mobile Money</th>
                         </tr>
                     </thead>
             
@@ -83,7 +95,14 @@
         }
     }
 }
-
+function afficherMiniPage() {
+      var miniPage = document.getElementById("miniPage");
+      if (miniPage.style.display === "none") {
+        miniPage.style.display = "block";
+      } else {
+        miniPage.style.display = "none";
+      }
+    }
 
 </script>
 
