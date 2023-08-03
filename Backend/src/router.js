@@ -151,14 +151,27 @@ router.get("/staff", (req, res) => {
 
 
 router.get("/payment", (req, res) => {
-  const countQuery = 
-    `SELECT client.id_client, client.name, client.email
-    FROM client
-    LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
-    WHERE payment.id_employee IS NULL;
-    `;
-  
-  pool.query(countQuery, (err, data) => {
+  pool.query(AllBasic.getClientNotPaid, (err, data) => {
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
+
+router.get("/canceled", (req, res) => {
+  pool.query(AllBasic.getCountClientCancelled, (err, data) => {
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
+
+router.get("/Sum", (req, res) => {
+  pool.query(AllBasic.getPaymentByMobileMoney, (err, data) => {
     if (err) {
       console.log(err.message);
       return res.status(500).send('Erreur de serveur');
