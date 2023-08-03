@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { pool } from "./connectionToDatabase.js"; 
+import AllBasic from "./Queries/AllBasic.js";
 
 export const router = new Router();
 
@@ -128,13 +129,8 @@ router.post('/guestdetailsubmit', (req, res) => {
 
 // show all booking 
 router.get("/roombook", (req, res) => {
-  const countQuery = `
-  select reservation.id_reservation , client.name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
-from reservation 
-inner join client ON reservation.id_client = client.id_client ;
-
-  `;
-  pool.query(countQuery, (err, data) => {
+ 
+  pool.query(AllBasic.getAllReservation, (err, data) => {
       if (err) {
           console.error(err.message);
           return res.status(500).send('Erreur de serveur');
@@ -192,8 +188,11 @@ router.get("/staff", (req, res) => {
 
 router.get("/payment", (req, res) => {
   const countQuery = 
-    `SELECT client.id_client, client.name, client.email, payment.total_amount_status FROM client
-    INNER JOIN payment ON payment.id_client = client.id_client;`;
+    `SELECT client.id_client, client.name, client.email
+    FROM client
+    LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
+    WHERE payment.id_employee IS NULL;
+    `;
   
   pool.query(countQuery, (err, data) => {
     if (err) {
