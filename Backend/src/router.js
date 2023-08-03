@@ -196,3 +196,17 @@ router.get("/payment",(req,res) => {
 router.get("/payment",(req,res) =>{
   
 })
+router.get("/payment",(req,res)=>{
+  const countQuery = 
+  `SELECT SUM(amount_paid) AS total_payements
+  FROM payment
+  JOIN payment_method ON payment.id_payment = payment_method.id_payment
+  WHERE mobile_money = true; `;
+  pool.query(countQuery,(err,data)=>{
+    if(err){
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
