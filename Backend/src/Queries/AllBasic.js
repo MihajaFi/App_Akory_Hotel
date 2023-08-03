@@ -43,12 +43,21 @@ const getCountClientCancelled = `
 
 `;
 
+const getPaymentByMobileMoney = `
+        SELECT SUM(amount_paid) AS total_mobile_money_payments
+        FROM payment
+        JOIN choose ON payment.id_payment = choose.id_payment
+        JOIN payment_method ON choose.id_payment_method = payment_method.id_payment_method
+        WHERE payment_method.mobile_money = true; 
+` ; 
+
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
     getClientNotPaid,
     getDetailRoomOccupiedByClient,
     getCountClientCancelled,
+    getPaymentByMobileMoney,
 };
 
 export default AllBasic;
