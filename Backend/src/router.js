@@ -203,3 +203,14 @@ router.get("/Sum", (req, res) => {
     res.send(data.rows);
   });
 });
+
+router.get("/hotel",(req,res)=>{
+  pool.query(AllBasic.getCountReservationByHotel,(err,data)=>{
+    if(err){
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
+
