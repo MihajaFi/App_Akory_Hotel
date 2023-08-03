@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { pool } from "./connectionToDatabase.js"; 
+import AllBasic from "./Queries/AllBasic.js";
 
 export const router = new Router();
 
@@ -128,13 +129,8 @@ router.post('/guestdetailsubmit', (req, res) => {
 
 // show all booking 
 router.get("/roombook", (req, res) => {
-  const countQuery = `
-  select reservation.id_reservation , client.name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
-from reservation 
-inner join client ON reservation.id_client = client.id_client ;
-
-  `;
-  pool.query(countQuery, (err, data) => {
+ 
+  pool.query(AllBasic.getAllReservation, (err, data) => {
       if (err) {
           console.error(err.message);
           return res.status(500).send('Erreur de serveur');
