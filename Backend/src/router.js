@@ -69,6 +69,49 @@ router.post("/index", (req, res) => {
   }
 });
 
+
+router.post("/home", (req, res) => {
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).send('Erreur de serveur');
+      }
+      res.clearCookie('connect.sid'); // Clear the session cookie
+      res.json({ success: true, message: 'Logout successfully' });
+    });
+  } else {
+    res.json({ success: true, message: 'You are not connected' });
+  }
+});
+
+router.post('/guestdetailsubmit', (req, res) => {
+  const {
+    date_arrived,
+    leaving_date,
+    number_of_person,
+    id_client,
+  } = req.body;
+
+  if (date_arrived === '' || leaving_date === '' || id_client === '') {
+    res.status(400).json({ message: 'Fill the proper details' });
+  } else {
+
+    const sql = `INSERT INTO roombook("Name","Email","Country","Phone","RoomType","Bed","NoofRoom","Meal","cin","cout") 
+                 VALUES ('${Name}','${Email}','${Country}','${Phone}','${RoomType}','${Bed}','${NoofRoom}','${Meal}','${cin}','${cout}'`;
+
+    pool.query(sql, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Reservation successful' });
+      }
+    });
+  }
+});
+
+
 // show all booking 
 router.get("/roombook", (req, res) => {
  
