@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="../assets/css/room.css">
      <script src="../../Admin/assets/js/room.js" defer></script>
      <script src="../../Admin/assets/js/addRoom.js" defer></script>
+     <script src="../../Admin/assets/js/findIdReservation.js" defer></script>
+     <script src="../../Admin/assets/js/findIdPromotion.js" defer></script>
+     <script src="../../Admin/assets/js/findIdHotel.js" defer></script>
+     <script src="../../Admin/assets/js/findIdFeture.js" defer></script>
+
 
 </head>
 
@@ -29,6 +34,9 @@
       
     <div class="roomsCreat">
         <form id="room-form" method="post" >
+           <span>
+             <a  style="text-decoration: none; color: red;font-family: Arial, Helvetica, sans-serif; font-size: 20px;" href="./room.html">X</a>
+           </span>
             <label for="room_number">Number:</label>
             <input type="text" id="room_number" name="room_number">
             <label for="room_type">Room Type:</label>
@@ -38,17 +46,18 @@
             </select>
             <label for="capacity_room">Capacity:</label>
             <input type="number" id="capacity_room" name="capacity_room">
-            <br>
             <label for="id_reservation">Reservation ID:</label>
-            <input type="number" id="id_reservation" name="id_reservation">
-            <br>
+            <select id="id_reservation" name="id_reservation">  
+            </select>
             <label for="id_promotion">Promotion ID:</label>
-            <input type="number" id="id_promotion" name="id_promotion">
-            <br>
+            <select id="id_promotion" name="id_promotion">  
+            </select>
             <label for="id_features">Features ID:</label>
-            <input type="number" id="id_features" name="id_features">
+            <select id="id_features" name="id_features">  
+            </select>
             <label for="id_hotel">Hotel ID:</label>
-            <input type="number" id="id_hotel" name="id_hotel">
+            <select  id="id_hotel" name="id_hotel">  
+            </select>
             <br>
             <button  type="submit" class="add-button">Add</button>
         </form>
