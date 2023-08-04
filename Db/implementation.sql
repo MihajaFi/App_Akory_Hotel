@@ -35,7 +35,7 @@ CREATE TABLE receptionist (
 
 CREATE TABLE client (
     id_client         serial PRIMARY KEY,
-    name              varchar(200) NOT NULL,
+    first_name              varchar(200) NOT NULL,
     last_name         varchar(200) NOT NULL,
     principal_contact varchar(50) NOT NULL,
     address           varchar(200) NOT NULL,
