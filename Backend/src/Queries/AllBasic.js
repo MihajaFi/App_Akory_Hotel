@@ -1,5 +1,5 @@
 const getClientNotPaid = `
-        SELECT client.id_client, client.name, client.email
+        SELECT client.id_client, client.first_name, client.email
         FROM client
         LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
         WHERE payment.id_employee IS NULL;
@@ -19,7 +19,7 @@ const getAllRecptionist = `
 ` ;
 
 const getAllReservation = `
-        select reservation.id_reservation , client.name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
+        select reservation.id_reservation , client.first_name || ' ' || client.last_name AS client_name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
         from reservation 
         inner join client ON reservation.id_client = client.id_client ;
 ` ;
@@ -35,11 +35,11 @@ const getDetailRoomOccupiedByClient = `
 `; 
 
 const getCountClientCancelled = `
-        SELECT c.id_client, c.name, COUNT(ca.id_cancel) AS nombre_annulations
+        SELECT c.id_client, c.first_name, COUNT(ca.id_cancel) AS nombre_annulations
         FROM client c
         LEFT JOIN reservation r ON c.id_client = r.id_client
         LEFT JOIN cancel ca ON r.id_reservation = ca.id_reservation
-        GROUP BY c.id_client, c.name;
+        GROUP BY c.id_client, c.first_name;
 
 `;
 
