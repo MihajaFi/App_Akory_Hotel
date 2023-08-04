@@ -29,12 +29,13 @@
       
     <div class="roomsCreat">
         <form id="room-form" method="post" >
-            <label for="number">Number:</label>
-            <input type="text" id="number" name="number">
-            <br>
+            <label for="room_number">Number:</label>
+            <input type="text" id="room_number" name="room_number">
             <label for="room_type">Room Type:</label>
-            <input type="text" id="room_type" name="room_type">
-            <br>
+            <select id="room_type" name="room_type">
+              <option value="Simple">Simple</option>
+              <option value="Vip">Vip</option>
+            </select>
             <label for="capacity_room">Capacity:</label>
             <input type="number" id="capacity_room" name="capacity_room">
             <br>
@@ -46,6 +47,8 @@
             <br>
             <label for="id_features">Features ID:</label>
             <input type="number" id="id_features" name="id_features">
+            <label for="id_hotel">Hotel ID:</label>
+            <input type="number" id="id_hotel" name="id_hotel">
             <br>
             <button  type="submit" class="add-button">Add</button>
         </form>
