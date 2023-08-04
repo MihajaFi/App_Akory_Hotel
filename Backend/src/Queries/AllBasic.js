@@ -94,7 +94,8 @@ const AllBasic = {
     getDetailRoomOccupiedByClient,
     getCountClientCancelled,
     getPaymentByMobileMoney,
-    getCountReservationByHotel
+    getCountReservationByHotel,
+    getstatuscountreserved,
 };
 
 export default AllBasic;
