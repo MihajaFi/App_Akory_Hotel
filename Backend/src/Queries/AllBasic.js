@@ -1,8 +1,8 @@
 const getClientNotPaid = `
-        SELECT client.id_client, client.first_name, client.email
+        SELECT client.id_client, client.first_name, client.email ,payment.total_amount_status
         FROM client
         LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
-        WHERE payment.id_employee IS NULL;
+       ;
 ` ; 
 
 const getAllRecptionist = `
