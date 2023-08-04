@@ -5,7 +5,7 @@ function showAllCanceledBooking(data) {
     let dataInitial = "";
     dataInitial += `<tr>
         <td>${values.id_client}</td>
-        <td>${values.name}</td>
+        <td>${values.first_name}</td>
         <td>${values.nombre_annulations}</td>
     </tr>`;
     body_table.innerHTML += dataInitial;

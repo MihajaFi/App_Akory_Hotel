@@ -5,7 +5,7 @@ function showAllClientNopay(data) {
         let dataInitial = "";
         dataInitial += `<tr>
       <td>${values.id_client}</td>
-      <td>${values.name}</td>
+      <td>${values.first_name}</td>
       <td>${values.email}</td>
       <td>${values.total_amount_status}</td>
     </tr>`;

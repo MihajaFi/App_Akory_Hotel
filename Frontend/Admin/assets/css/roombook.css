@@ -85,7 +85,7 @@ i{
 }
 
 #guestdetailpanel .guestdetailpanelform{
-    height: 620px;
+    height: 420px;
     width: 1170px;
     background-color: #ccdff4;
     border-radius: 10px;  
@@ -126,7 +126,7 @@ a{
 
 .guestdetailpanelform .middle{
     width: 100%;
-    height: 500px;
+    height: 300px;
     margin: 10px 0 0 0;
     display: flex;
 }
@@ -139,8 +139,8 @@ a{
     flex-direction: column;
     align-items: center;
 }
+
 .guestdetailpanelform .middle .reservationinfo{
-    
     width: 100%;
     background-color: rgba(155, 187, 255, 0.752);
     padding: 20px;
@@ -178,22 +178,21 @@ a{
     margin: 5px;
 }
 
-/* room book table */
 .roombooktable{
     position: absolute;
     color: #0a0d2d;
     margin-top: 80px;
     width: 100%;
     height: 100vh;
-
-    /* padding bottom to add space */
     padding-bottom: 900px;
 }
+
 .roombooktable thead{
     background-color:  #0a0d2d;
     color: white;
     text-align: center;
 }
+
 .roombooktable tbody{
     text-align: center;
 }
