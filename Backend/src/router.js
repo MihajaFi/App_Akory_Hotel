@@ -237,3 +237,28 @@ router.get("/statusreserved",(req,res)=>{
     res.send(data.rows)
   })
 })
+
+//create room 
+
+router.post("/CreateRoom", (req, res) => {
+  const {
+    number, room_type, capacity_room, id_reservation, id_promotion, id_features
+  } = req.body;
+
+  if (number === '' || room_type === '' || capacity_room === '') {
+    res.status(400).json({ message: 'Fill the proper details' });
+  } else {
+    const sql = `INSERT INTO room ("number", room_type, capacity_room, id_reservation, id_promotion, id_features)
+                 VALUES ($1, $2, $3, $4, $5, $6);`;
+
+    const values = [number, room_type, capacity_room, id_reservation, id_promotion, id_features];
+    pool.query(sql, values, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Add room successful' });
+      }
+    });
+  }
+});
