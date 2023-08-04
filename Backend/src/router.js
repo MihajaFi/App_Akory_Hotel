@@ -289,4 +289,3 @@ router.get("/room", (req, res) => {
     res.send(data.rows);
   });
 });
-
