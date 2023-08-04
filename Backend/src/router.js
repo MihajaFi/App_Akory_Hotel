@@ -71,23 +71,15 @@ router.post("/index", (req, res) => {
 
 router.post('/guestdetailsubmit', (req, res) => {
   const {
-    Name,
-    Email,
-    Country,
-    Phone,
-    RoomType,
-    Bed,
-    NoofRoom,
-    Meal,
-    cin,
-    cout,
+    date_arrived,
+    leaving_date,
+    number_of_person,
+    id_client,
   } = req.body;
 
-  if (Name === '' || Email === '' || Country === '') {
+  if (date_arrived === '' || leaving_date === '' || id_client === '') {
     res.status(400).json({ message: 'Fill the proper details' });
   } else {
-    const sta = 'NotConfirm';
-    // const nodays = parseInt((new Date(cout) - new Date(cin)) / (24 * 3600 * 1000));
 
     const sql = `INSERT INTO roombook("Name","Email","Country","Phone","RoomType","Bed","NoofRoom","Meal","cin","cout") 
                  VALUES ('${Name}','${Email}','${Country}','${Phone}','${RoomType}','${Bed}','${NoofRoom}','${Meal}','${cin}','${cout}'`;
@@ -149,7 +141,6 @@ router.get("/staff", (req, res) => {
   });
 });
 
-
 router.get("/payment", (req, res) => {
   pool.query(AllBasic.getClientNotPaid, (err, data) => {
     if (err) {
@@ -179,3 +170,41 @@ router.get("/Sum", (req, res) => {
     res.send(data.rows);
   });
 });
+
+
+// dropdown
+router.get("/addroombook", (req, res) => {
+  const sql = `SELECT id_client, first_name, last_name FROM client;`;
+  pool.query(sql, (err, result) => {
+      if (err) {
+          console.error("Error executing query:", err);
+          res.status(500).json({ error: "Error fetching data from the database" });
+      } else {
+          res.json(result.rows);
+      }
+  });
+});
+
+// insert roombook
+
+router.post("/roombook", (req,res) =>{
+  const {
+    arrived,leaving,number,id
+  } = req.body;
+
+  if (number_of_person === '') {
+    res.status(400).json({ message: 'Fill the proper details' });
+  }else{
+    const sql = `INSERT INTO reservation ("date_arrived", "leaving_date", "number_of_person", "id_client")
+    VALUES ('${arrived}','${leaving}',${number},${id});`;
+
+    pool.query(sql, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Inserted successfully' });
+      }
+    });
+  }
+})
