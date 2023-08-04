@@ -69,6 +69,7 @@ router.post("/index", (req, res) => {
   }
 });
 
+
 router.post("/home", (req, res) => {
   if (req.session) {
     req.session.destroy((err) => {
@@ -109,6 +110,7 @@ router.post('/guestdetailsubmit', (req, res) => {
     });
   }
 });
+
 
 // show all booking 
 router.get("/roombook", (req, res) => {
@@ -202,6 +204,61 @@ router.post("/staff", (req,res) =>{
   }
 })
 
+// delete staff
+
+router.delete("/staff/:id", (req, res) => {
+  const employeeId = req.params.id;
+  
+  // Commencer une transaction
+  pool.query("BEGIN", (err) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send("Erreur de serveur");
+    }
+
+    // Étape 1 : Supprimer les enregistrements liés dans la table "client"
+    const deleteClientQuery = "DELETE FROM client WHERE id_employee = $1";
+    pool.query(deleteClientQuery, [employeeId], (err, result) => {
+      if (err) {
+        console.error(err.message);
+        // Annuler la transaction en cas d'erreur
+        pool.query("ROLLBACK", () => {
+          res.status(500).send("Erreur de serveur lors de la suppression de l'employée");
+        });
+      } else {
+        // Étape 2 : Supprimer les enregistrements liés dans la table "payment"
+        const deleteCancelQuery = "DELETE FROM payment WHERE id_employee = $1";
+        pool.query(deleteCancelQuery, [employeeId], (err, result) => {
+          if (err) {
+            console.error(err.message);
+            // Annuler la transaction en cas d'erreur
+            pool.query("ROLLBACK", () => {
+              res.status(500).send("Erreur de serveur lors de la suppression de l'employée");
+            });
+          } else {
+            // Étape 3 : Supprimer l'employée dans la table "receptionist"
+            const deleteReservationQuery = "DELETE FROM receptionist WHERE id_employee = $1";
+            pool.query(deleteReservationQuery, [employeeId], (err, result) => {
+              if (err) {
+                console.error(err.message);
+                // Annuler la transaction en cas d'erreur
+                pool.query("ROLLBACK", () => {
+                  res.status(500).send("Erreur de serveur lors de la suppression de l'employée");
+                });
+              } else {
+                // Valider la transaction si tout s'est bien déroulé
+                pool.query("COMMIT", () => {
+                  res.send("Employée supprimée avec succès");
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+  });
+});
+
 // show all staff 
 router.get("/staff", (req, res) => {
   pool.query(AllBasic.getAllRecptionist, (err, data) => {
@@ -254,6 +311,28 @@ router.get("/statusreserved",(req,res)=>{
 })
 
 
+//create roombook
+
+router.post("/roombook", (req, res) => {
+  const {
+    DArrived,DLeaved,number_of_person,id_client
+  } = req.body;
+
+  if (number_of_person === '' || DArrived === '' || DLeaved === '') {
+    res.status(400).json({ message: 'Fill the proper details' });
+  }else{
+    const sql = `INSERT INTO reservation ("date_arrived", "leaving_date", "number_of_person", "id_client")
+    VALUES ('${DArrived}','${DLeaved}',${number_of_person},${id_client});`;
+  }
+    pool.query(sql, values, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Add room successful' });
+      }
+    });
+  });
 //create room 
 
 router.post("/CreateRoom", (req, res) => {
@@ -305,3 +384,23 @@ router.get("/room", (req, res) => {
   });
 });
 
+
+// Show all id_reservation 
+
+router.get("/CreateRoom", (req, res) => {
+  const query = `
+    SELECT
+      (SELECT ARRAY_AGG(id_reservation) FROM reservation) as reservations,
+      (SELECT ARRAY_AGG(id_hotel) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
+      (SELECT ARRAY_AGG(id_promotion) FROM promotion WHERE id_promotion IS NOT NULL) as promotions,
+      (SELECT ARRAY_AGG(id_features) FROM room_features WHERE id_features IS NOT NULL) as room_features;
+  `;
+
+  pool.query(query, (err, data) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
