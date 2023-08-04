@@ -139,6 +139,31 @@ ul li a:hover{
     -webkit-text-fill-color: transparent;
 }
 
+#prov{
+    width: 200px;
+    border-radius: 1%;
+}
+#btnsearch{
+    margin-top: 0.5%;
+    margin-left: 0.3%;
+    height: 45px;
+}
+#searchhotel{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2%;
+    margin-left: 2%;
+}
+#province{
+    font-size: 50px;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 2px;
+    /* text gradiant */
+    background: -webkit-linear-gradient(317deg, rgba(0, 60, 255, 0.81) 0%, rgb(255 0 123) 70%);
+    background: -webkit-linear-gradient(317deg, rgba(1, 5, 10, 0.81) 9%, #e91f04 70%);
+    -webkit-background-clip: text;
+}
 /* secondsection */
 
 #secondsection{
