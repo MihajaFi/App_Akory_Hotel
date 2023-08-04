@@ -242,16 +242,16 @@ router.get("/statusreserved",(req,res)=>{
 
 router.post("/CreateRoom", (req, res) => {
   const {
-    number, room_type, capacity_room, id_reservation, id_promotion, id_features
+    room_number, room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel
   } = req.body;
 
-  if (number === '' || room_type === '' || capacity_room === '') {
+  if (room_number === '' || room_type === '' || capacity_room === '') {
     res.status(400).json({ message: 'Fill the proper details' });
   } else {
-    const sql = `INSERT INTO room ("number", room_type, capacity_room, id_reservation, id_promotion, id_features)
-                 VALUES ($1, $2, $3, $4, $5, $6);`;
+    const sql = `INSERT INTO room ("number", room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel)
+                 VALUES ($1, $2, $3, $4, $5, $6,$7);`;
 
-    const values = [number, room_type, capacity_room, id_reservation, id_promotion, id_features];
+    const values = [room_number, room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel];
     pool.query(sql, values, (error, result) => {
       if (error) {
         console.error('Error executing query:', error);
@@ -262,3 +262,18 @@ router.post("/CreateRoom", (req, res) => {
     });
   }
 });
+
+// Get all rooms
+router.get("/room", (req, res) => {
+  const queryRoom = `
+    SELECT "room_number", room_type, capacity_room FROM room;
+  `;
+  pool.query(queryRoom, (err, data) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
+
