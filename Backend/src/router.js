@@ -234,6 +234,7 @@ router.get("/statusreserved",(req,res)=>{
       console.log(err.message);
       return res.status(500).send('Erreur de serveur');
     }
+    
     res.send(data.rows)
   })
 })
