@@ -1,8 +1,8 @@
-const getClientNotPaid = `
-        SELECT client.id_client, client.first_name, client.email
+const getAllpaymentByClient = `
+        SELECT client.id_client, client.first_name, client.email ,payment.total_amount_status
         FROM client
         LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
-        WHERE payment.id_employee IS NULL;
+       ;
 ` ; 
 
 const getAllRecptionist = `
@@ -81,7 +81,7 @@ const getAllSignupUser =  `
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
-    getClientNotPaid,
+    getAllpaymentByClient,
     getAllSignupStaff,
     getCheckEmail,
     getAllSignupUser,
