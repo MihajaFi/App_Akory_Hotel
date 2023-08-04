@@ -3,8 +3,8 @@ function AddRoomBook(data) {
     const roomBookData = {
         DArrived : formData.get('DArrived'),
         DLeaved : formData.get('DLeaved'),
-        PerNbr : formData.get('PerNbr'),
-        Country : formData.get('Country')
+        number_of_person : formData.get('PerNbr'),
+        id_client : formData.get('Country')
     };
 
     fetch("http://localhost:5000/roombook", {

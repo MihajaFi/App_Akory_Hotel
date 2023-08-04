@@ -7,7 +7,7 @@ const getAllpaymentByClient = `
 
 const getAllRecptionist = `
         SELECT 
-        r.id_employee, r.first_name, r.last_name, r.email, r.work_contact, 
+        r.id_employee, r.first_name ||' '|| r.last_name AS staff_name, r.email, r.work_contact, 
         h.hotel_name,
         p.province_name
         FROM 
