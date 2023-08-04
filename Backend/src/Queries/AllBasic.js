@@ -1,8 +1,8 @@
-const getClientNotPaid = `
-        SELECT client.id_client, client.first_name, client.email
+const getAllpaymentByClient = `
+        SELECT client.id_client, client.first_name, client.email ,payment.total_amount_status
         FROM client
         LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
-        WHERE payment.id_employee IS NULL;
+       ;
 ` ; 
 
 const getAllRecptionist = `
@@ -50,6 +50,12 @@ const getPaymentByMobileMoney = `
         JOIN payment_method ON choose.id_payment_method = payment_method.id_payment_method
         WHERE payment_method.mobile_money = true; 
 ` ; 
+const getstatuscountreserved = `
+SELECT client.first_name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
+  FROM client
+  INNER JOIN reservation ON  client.id_client = reservation.id_client
+  GROUP BY client.id_client;
+`
 
 const getCountReservationByHotel = `
         SELECT h.id_hotel, h.hotel_name, COUNT(r.id_reservation) AS total_reservations
@@ -76,19 +82,29 @@ const getAllSignupUser =  `
         FROM signup
         WHERE Email = $1 AND Password = $2
 `;
-
+const getHotelRoomAvailable = `
+        SELECT h.hotel_name
+        FROM hotel h
+        LEFT JOIN room r ON h.id_hotel = r.id_hotel
+        LEFT JOIN reservation rv ON r.id_reservation = rv.id_reservation
+        WHERE rv.id_reservation IS NULL OR 
+        NOT (rv.date_arrived <= '2023-08-15' AND rv.leaving_date >= '2023-08-10')
+        GROUP BY h.hotel_name, h.id_hotel;
+`
 
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
-    getClientNotPaid,
+    getAllpaymentByClient,
     getAllSignupStaff,
     getCheckEmail,
     getAllSignupUser,
     getDetailRoomOccupiedByClient,
     getCountClientCancelled,
     getPaymentByMobileMoney,
-    getCountReservationByHotel
+    getCountReservationByHotel,
+    getstatuscountreserved,
+    getHotelRoomAvailable,
 };
 
 export default AllBasic;

@@ -1,0 +1,51 @@
+.containertwo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+/* Style du formulaire de recherche */
+#availabilityForm {
+    max-width: 600px;
+    margin: 20px ;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#availabilityForm h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+}
+
+.form-group input[type="date"] {
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-btn {
+    padding: 10px;
+    background-color: #b4d10e;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.search-btn:hover {
+    background-color: #d5e40d;
+}
