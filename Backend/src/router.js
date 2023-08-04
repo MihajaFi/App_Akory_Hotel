@@ -106,6 +106,63 @@ router.get("/roombook", (req, res) => {
       res.send(data.rows);
   });
 });
+
+// Supprimer une réservation par son ID
+// Route pour supprimer une réservation
+router.delete("/roombook/:id", (req, res) => {
+  const reservationId = req.params.id;
+  
+  // Commencer une transaction
+  pool.query("BEGIN", (err) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send("Erreur de serveur");
+    }
+
+    // Étape 1 : Supprimer les enregistrements liés dans la table "room"
+    const deleteRoomQuery = "DELETE FROM room WHERE id_reservation = $1";
+    pool.query(deleteRoomQuery, [reservationId], (err, result) => {
+      if (err) {
+        console.error(err.message);
+        // Annuler la transaction en cas d'erreur
+        pool.query("ROLLBACK", () => {
+          res.status(500).send("Erreur de serveur lors de la suppression de la réservation");
+        });
+      } else {
+        // Étape 2 : Supprimer les enregistrements liés dans la table "cancel"
+        const deleteCancelQuery = "DELETE FROM cancel WHERE id_reservation = $1";
+        pool.query(deleteCancelQuery, [reservationId], (err, result) => {
+          if (err) {
+            console.error(err.message);
+            // Annuler la transaction en cas d'erreur
+            pool.query("ROLLBACK", () => {
+              res.status(500).send("Erreur de serveur lors de la suppression de la réservation");
+            });
+          } else {
+            // Étape 3 : Supprimer la réservation dans la table "reservation"
+            const deleteReservationQuery = "DELETE FROM reservation WHERE id_reservation = $1";
+            pool.query(deleteReservationQuery, [reservationId], (err, result) => {
+              if (err) {
+                console.error(err.message);
+                // Annuler la transaction en cas d'erreur
+                pool.query("ROLLBACK", () => {
+                  res.status(500).send("Erreur de serveur lors de la suppression de la réservation");
+                });
+              } else {
+                // Valider la transaction si tout s'est bien déroulé
+                pool.query("COMMIT", () => {
+                  res.send("Réservation supprimée avec succès");
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+  });
+});
+
+
 // Add staff
 
 router.post("/staff", (req,res) =>{
