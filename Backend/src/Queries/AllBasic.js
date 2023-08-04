@@ -1,8 +1,8 @@
-const getClientNotPaid = `
-        SELECT client.id_client, client.name, client.email
+const getAllpaymentByClient = `
+        SELECT client.id_client, client.first_name, client.email ,payment.total_amount_status
         FROM client
         LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
-        WHERE payment.id_employee IS NULL;
+       ;
 ` ; 
 
 const getAllRecptionist = `
@@ -19,7 +19,7 @@ const getAllRecptionist = `
 ` ;
 
 const getAllReservation = `
-        select reservation.id_reservation , client.name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
+        select reservation.id_reservation , client.first_name || ' ' || client.last_name AS client_name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
         from reservation 
         inner join client ON reservation.id_client = client.id_client ;
 ` ;
@@ -35,11 +35,11 @@ const getDetailRoomOccupiedByClient = `
 `; 
 
 const getCountClientCancelled = `
-        SELECT c.id_client, c.name, COUNT(ca.id_cancel) AS nombre_annulations
+        SELECT c.id_client, c.first_name, COUNT(ca.id_cancel) AS nombre_annulations
         FROM client c
         LEFT JOIN reservation r ON c.id_client = r.id_client
         LEFT JOIN cancel ca ON r.id_reservation = ca.id_reservation
-        GROUP BY c.id_client, c.name;
+        GROUP BY c.id_client, c.first_name;
 
 `;
 
@@ -58,36 +58,36 @@ SELECT client.name,client.last_name, COUNT(reservation.id_reservation) AS reserv
 `
 
 const getCountReservationByHotel = `
-SELECT h.id_hotel, h.hotel_name, COUNT(r.id_reservation) AS total_reservations
-FROM hotel h
-LEFT JOIN room rm ON h.id_hotel = rm.id_hotel
-LEFT JOIN reservation r ON rm.id_reservation = r.id_reservation
-GROUP BY h.id_hotel, h.hotel_name;
+        SELECT h.id_hotel, h.hotel_name, COUNT(r.id_reservation) AS total_reservations
+        FROM hotel h
+        LEFT JOIN room rm ON h.id_hotel = rm.id_hotel
+        LEFT JOIN reservation r ON rm.id_reservation = r.id_reservation
+        GROUP BY h.id_hotel, h.hotel_name;
 `
 const getAllSignupStaff = `
-SELECT email, password
-FROM receptionist
-WHERE "email" = $1 AND "password" = $2 ; 
+        SELECT email, password
+        FROM receptionist
+        WHERE "email" = $1 AND "password" = $2 ; 
 `;
 
 const getCheckEmail = `
-SELECT *
-FROM signup 
-WHERE Email = $1 ;
+        SELECT *
+        FROM signup 
+        WHERE Email = $1 ;
 `;
 
 
 const getAllSignupUser =  `
-SELECT *
-FROM signup
-WHERE Email = $1 AND Password = $2
+        SELECT *
+        FROM signup
+        WHERE Email = $1 AND Password = $2
 `;
 
 
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
-    getClientNotPaid,
+    getAllpaymentByClient,
     getAllSignupStaff,
     getCheckEmail,
     getAllSignupUser,
