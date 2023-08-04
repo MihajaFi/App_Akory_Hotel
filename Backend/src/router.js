@@ -199,7 +199,7 @@ router.get("/staff", (req, res) => {
 });
 
 router.get("/payment", (req, res) => {
-  pool.query(AllBasic.getClientNotPaid, (err, data) => {
+  pool.query(AllBasic.getAllpaymentByClient, (err, data) => {
     if (err) {
       console.log(err.message);
       return res.status(500).send('Erreur de serveur');
