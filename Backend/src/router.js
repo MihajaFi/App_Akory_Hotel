@@ -289,3 +289,24 @@ router.get("/room", (req, res) => {
     res.send(data.rows);
   });
 });
+
+
+// Show all id_reservation 
+
+router.get("/CreateRoom", (req, res) => {
+  const query = `
+    SELECT
+      (SELECT ARRAY_AGG(id_reservation) FROM reservation) as reservations,
+      (SELECT ARRAY_AGG(id_hotel) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
+      (SELECT ARRAY_AGG(id_promotion) FROM promotion WHERE id_promotion IS NOT NULL) as promotions,
+      (SELECT ARRAY_AGG(id_features) FROM room_features WHERE id_features IS NOT NULL) as room_features;
+  `;
+
+  pool.query(query, (err, data) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
