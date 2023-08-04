@@ -238,6 +238,7 @@ router.get("/statusreserved",(req,res)=>{
   })
 })
 
+
 //create room 
 
 router.post("/CreateRoom", (req, res) => {
@@ -273,6 +274,18 @@ router.get("/room", (req, res) => {
       console.error(err.message);
       return res.status(500).send('Erreur de serveur');
     }
+    res.send(data.rows);
+  });
+});
+
+ // Show hotel 
+ router.get("/hotel", (req, res) => {
+  pool.query(AllBasic.getHotelRoomAvailable, (err, data) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send("Erreur de serveur");
+    }
+
     res.send(data.rows);
   });
 });

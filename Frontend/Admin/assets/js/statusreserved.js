@@ -4,7 +4,7 @@ function showAllreserved(data) {
     data.map((values)=> {
         let dataInitial = "";
         dataInitial += `<tr>
-      <td>${values.name}</td>
+      <td>${values.first_name}</td>
       <td>${values.last_name}</td>
       <td>${values.reservation_count}</td>
     </tr>`;
