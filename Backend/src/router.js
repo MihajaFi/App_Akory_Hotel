@@ -248,7 +248,7 @@ router.post("/CreateRoom", (req, res) => {
   if (room_number === '' || room_type === '' || capacity_room === '') {
     res.status(400).json({ message: 'Fill the proper details' });
   } else {
-    const sql = `INSERT INTO room ("number", room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel)
+    const sql = `INSERT INTO room ("room_number", room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel)
                  VALUES ($1, $2, $3, $4, $5, $6,$7);`;
 
     const values = [room_number, room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel];
