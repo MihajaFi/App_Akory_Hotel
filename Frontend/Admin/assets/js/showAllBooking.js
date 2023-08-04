@@ -5,7 +5,7 @@ function showAllBooking(data) {
       let dataInitial = "";
       dataInitial += `<tr>
       <td>${values.id_reservation}</td>
-      <td>${values.name}</td>
+      <td>${values.client_name}</td>
       <td>${values.email}</td>
       <td>${values.date_arrived}</td>
       <td>${values.leaving_date}</td>
