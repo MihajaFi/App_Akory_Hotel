@@ -237,3 +237,14 @@ router.get("/statusreserved",(req,res)=>{
     res.send(data.rows)
   })
 })
+ // Show hotel 
+ router.get("/hotel", (req, res) => {
+  pool.query(AllBasic.getHotelRoomAvailable, (err, data) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send("Erreur de serveur");
+    }
+
+    res.send(data.rows);
+  });
+});

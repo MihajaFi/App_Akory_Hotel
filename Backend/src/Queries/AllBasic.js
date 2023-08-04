@@ -51,7 +51,7 @@ const getPaymentByMobileMoney = `
         WHERE payment_method.mobile_money = true; 
 ` ; 
 const getstatuscountreserved = `
-SELECT client.name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
+SELECT client.first_name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
   FROM client
   INNER JOIN reservation ON  client.id_client = reservation.id_client
   GROUP BY client.id_client;
@@ -82,7 +82,15 @@ const getAllSignupUser =  `
         FROM signup
         WHERE Email = $1 AND Password = $2
 `;
-
+const getHotelRoomAvailable = `
+        SELECT h.hotel_name
+        FROM hotel h
+        LEFT JOIN room r ON h.id_hotel = r.id_hotel
+        LEFT JOIN reservation rv ON r.id_reservation = rv.id_reservation
+        WHERE rv.id_reservation IS NULL OR 
+        NOT (rv.date_arrived <= '2023-08-15' AND rv.leaving_date >= '2023-08-10')
+        GROUP BY h.hotel_name, h.id_hotel;
+`
 
 const AllBasic = {
     getAllRecptionist,
@@ -96,6 +104,7 @@ const AllBasic = {
     getPaymentByMobileMoney,
     getCountReservationByHotel,
     getstatuscountreserved,
+    getHotelRoomAvailable,
 };
 
 export default AllBasic;
