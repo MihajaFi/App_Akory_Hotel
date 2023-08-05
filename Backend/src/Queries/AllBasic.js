@@ -1,8 +1,7 @@
 const getAllpaymentByClient = `
-        SELECT client.id_client, client.first_name, client.email ,payment.total_amount_status
-        FROM client
-        LEFT OUTER JOIN payment ON payment.id_employee = client.id_employee
-       ;
+select client.id_client, client.first_name, client.email,payment.amount_paid from client 
+inner join payment on
+client.id_employee = payment.id_employee; 
 ` ; 
 
 const getAllRecptionist = `
