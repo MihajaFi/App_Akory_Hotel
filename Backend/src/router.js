@@ -148,7 +148,7 @@ router.post("/staff", (req,res) =>{
     res.status(400).json({ message: 'Fill the proper details' });
   }else{
     const sql = `INSERT INTO receptionist("first_name","last_name","password","email","work_contact","id_province") 
-    VALUES ('${Name}','${LastName}','${Password}','${Email}',${Phone}, ${Country})`;
+    VALUES ('${Name}','${LastName}','${Password}','${Email}','${Phone}', ${Country})`;
 
     pool.query(sql, (error, result) => {
       if (error) {
@@ -184,8 +184,8 @@ router.delete("/staff/:id", (req, res) => {
         });
       } else {
         // Étape 2 : Supprimer les enregistrements liés dans la table "payment"
-        const deleteCancelQuery = "DELETE FROM payment WHERE id_employee = $1";
-        pool.query(deleteCancelQuery, [employeeId], (err, result) => {
+        const deletePaymentQuery = "DELETE FROM payment WHERE id_employee = $1";
+        pool.query(deletePaymentQuery, [employeeId], (err, result) => {
           if (err) {
             console.error(err.message);
             // Annuler la transaction en cas d'erreur
@@ -194,8 +194,8 @@ router.delete("/staff/:id", (req, res) => {
             });
           } else {
             // Étape 3 : Supprimer l'employée dans la table "receptionist"
-            const deleteReservationQuery = "DELETE FROM receptionist WHERE id_employee = $1";
-            pool.query(deleteReservationQuery, [employeeId], (err, result) => {
+            const deleteEmployeeQuery = "DELETE FROM receptionist WHERE id_employee = $1";
+            pool.query(deleteEmployeeQuery, [employeeId], (err, result) => {
               if (err) {
                 console.error(err.message);
                 // Annuler la transaction en cas d'erreur
@@ -228,7 +228,7 @@ router.get("/staff", (req, res) => {
 });
 
 router.get("/payment", (req, res) => {
-  pool.query(AllBasic.getAllpaymentByClient, (err, data) => {
+  pool.query(AllBasic.getPaymentByMobileMoney, (err, data) => {
     if (err) {
       console.log(err.message);
       return res.status(500).send('Erreur de serveur');
@@ -280,8 +280,8 @@ router.post("/roombook", (req, res) => {
   }else{
     const sql = `INSERT INTO reservation ("date_arrived", "leaving_date", "number_of_person", "id_client")
     VALUES ('${DArrived}','${DLeaved}',${number_of_person},${id_client});`;
-  }
-    pool.query(sql, values, (error, result) => {
+  
+    pool.query(sql, (error, result) => {
       if (error) {
         console.error('Error executing query:', error);
         res.status(500).json({ message: 'Something went wrong' });
@@ -289,6 +289,7 @@ router.post("/roombook", (req, res) => {
         res.status(200).json({ message: 'Add room successful' });
       }
     });
+    }
   });
 //create room 
 
@@ -343,7 +344,7 @@ router.get("/room", (req, res) => {
 
 // dropdown
 
-router.get("/roombook", (req, res) => {
+router.get("/addroombook", (req, res) => {
   const sql = `SELECT id_client, first_name, last_name from client;`;
   pool.query(sql, (err, data) => {
       if (err) {
