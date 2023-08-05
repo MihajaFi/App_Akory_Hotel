@@ -7,7 +7,7 @@ function showAllClientNopay(data) {
       <td>${values.id_client}</td>
       <td>${values.first_name}</td>
       <td>${values.email}</td>
-      <td>${values.total_amount_status}</td>
+      <td>${values.amount_paid}</td>
     </tr>`;
     body_table.innerHTML += dataInitial;
     });
@@ -24,3 +24,7 @@ function infoClientNoPay(){
 .catch(data =>alert(data))
 }
 infoClientNoPay();
+
+
+
+
