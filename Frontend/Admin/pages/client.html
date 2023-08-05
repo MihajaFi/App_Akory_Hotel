@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- boot -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- fontowesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../assets/js/showAllClient.js" defer></script>
+    <script src="../assets/js/addClientByAdmin.js" defer></script>
+    <script src="../assets/js/clientDropdown.js"defer></script>
+    <link rel="stylesheet" href="../../Admin/assets/css/staff.css">
+    <title>Akory - Admin</title>
+    <style>
+        #guestdetailpanel{
+          display: none;
+        }
+        #guestdetailpanel .middle{
+          height: 400px;
+        }
+      </style>
+</head>
+<body>
+    
+</body>
+</html>
+<div id="guestdetailpanel">
+    <form action="" method="POST" class="guestdetailpanelform" id="staffSignup">
+        <div class="head">
+            <h3>CLIENT</h3>
+            <i class="fa-solid fa-circle-xmark" onclick="addstaffclose()"></i>
+        </div>
+        <div class="middle">
+            <div class="guestinfo">
+                <h4>Guest information</h4>
+                <input type="text" name="FirstName" id="FirstName" placeholder="Enter client first name">
+                <input type="text" name="LastName" id="LastName" placeholder="Enter client last name">
+                <input type="email" name="Email" id="Email" placeholder="Enter client Email">
+                <select name="Gender" class="selectinput" id="Gender">
+                  <option value selected>Choose client gender</option>
+                  <option value="H">Man</option>
+                  <option value="F">Woman</option>
+                </select>
+                <input type="text" name="Cin" id="Cin" placeholder="Enter client CIN number">
+                <input type="text" name="Address" id="Address" placeholder="Enter client address">
+                <input type="tel" name="Phone" id="Phone" placeholder="Enter client phone number">
+                <input type="tel" name="EmergePhone" id="EmergePhone" placeholder="Enter an emergence phone number">
+                <select name="Employee" class="selectinput" id="Employee">
+                    <option value="" selected>Receptionist name</option>
+                </select>
+                <input type="password" name="password" id="password" placeholder="Enter client password">
+                <input type="password" name="Cpassword" id="Cpassword" placeholder="Confirm client password">
+            </div>
+        </div>
+        <br>
+        <div class="footer">
+            <button class="btn btn-success" name="guestdetailsubmit" type="submit" id="buttonSub">Submit</button>
+        </div>
+    </form>
+</div>
+
+<!-- ================================================= -->
+<div class="searchsection">
+    <input type="text" name="search_bar" id="search_bar" placeholder="search id or Name or Hotel or province" onkeyup="searchFun()">
+    <button class="adduser" id="adduser" onclick="addstaffopen()"><i class="fa-solid fa-bookmark"></i>Add</button>
+    <form action="./exportdata.php" method="post">
+        <button class="exportexcel" id="exportexcel" name="exportexcel" type="submit"><i class="fa-solid fa-file-arrow-down"></i></button>
+    </form>
+</div>
+
+<div class="roombooktable" class="table-responsive-xl">
+    <table class="table table-bordered" id="table-data">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead><tbody id="table_body"></tbody>
+    </table>
+</div>
+
+<script>
+    addstaffopen = () => {
+        var bookbox = document.getElementById("guestdetailpanel");
+        bookbox.style.display =  "flex";
+    }
+    addstaffclose = () =>{
+        var bookbox = document.getElementById("guestdetailpanel");
+        bookbox.style.display = "none";
+    }
+</script>
