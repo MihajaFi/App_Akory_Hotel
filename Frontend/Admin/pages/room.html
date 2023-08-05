@@ -15,16 +15,17 @@
     <script src="../../Admin/assets/js/room.js" defer></script>
     <script src="../../Admin/assets/js/addRoom.js" defer></script>
      <script src="../../Admin/assets/js/DeleteRoom.js" defer></script>
+     <script src="../../Admin/assets/js/SelectById.js" defer></script>
 
 </head>
 
 <body>
     <nav>
         <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <button>Search</button>
-        </div>
-        <button class="add-button"><a href="./CreateRoom.html" class="addRoomButton">Add</a></button>
+            <input type="text" id="roomNumberInput" placeholder="Number room...">
+            <button type="button" onclick="searchRoom()">Search</button>
+          </div>
+          <button class="add-button"><a href="./CreateRoom.html" class="addRoomButton">Add</a></button>
     </nav>
     
     <div class="room" id="rooms" style="max-height: 400px; overflow-y: auto;">
