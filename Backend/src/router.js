@@ -85,33 +85,6 @@ router.post("/home", (req, res) => {
   }
 });
 
-router.post('/guestdetailsubmit', (req, res) => {
-  const {
-    date_arrived,
-    leaving_date,
-    number_of_person,
-    id_client,
-  } = req.body;
-
-  if (date_arrived === '' || leaving_date === '' || id_client === '') {
-    res.status(400).json({ message: 'Fill the proper details' });
-  } else {
-
-    const sql = `INSERT INTO roombook("Name","Email","Country","Phone","RoomType","Bed","NoofRoom","Meal","cin","cout") 
-                 VALUES ('${Name}','${Email}','${Country}','${Phone}','${RoomType}','${Bed}','${NoofRoom}','${Meal}','${cin}','${cout}'`;
-
-    pool.query(sql, (error, result) => {
-      if (error) {
-        console.error('Error executing query:', error);
-        res.status(500).json({ message: 'Something went wrong' });
-      } else {
-        res.status(200).json({ message: 'Reservation successful' });
-      }
-    });
-  }
-});
-
-
 // show all booking 
 router.get("/roombook", (req, res) => {
  
@@ -414,5 +387,81 @@ router.get("/CreateRoom", (req, res) => {
       return res.status(500).send('Erreur de serveur');
     }
     res.send(data.rows);
+  });
+});
+
+
+// insert client by client
+
+router.post("/home", (req, res) =>{
+  const {
+    FirstName,LastName,Email,Phone,EmergePhone,
+    Gender,Address,Cin,Password
+  } = req.body;
+
+  if (FirstName === '' || Email === '') {
+    res.status(400).json({ message: 'Fill the proper details' });
+  }else{
+    const sql = `INSERT INTO client ("first_name","last_name","principal_contact","address","emergency_number","gender","CIN","email","password") 
+    VALUES ('${FirstName}','${LastName}','${Phone}','${Address}','${EmergePhone}','${Gender}','${Cin}','${Email}','${Password}');`;
+
+    pool.query(sql, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Inserted successfully' });
+      }
+    });
+  }
+});
+
+
+// dropdown client
+router.get("/client", (req, res) => {
+  const sql = `SELECT id_employee, first_name, last_name from receptionist;`;
+  pool.query(sql, (err, data) => {
+      if (err) {
+          console.error(err.message);
+          return res.status(500).send('Erreur de serveur');
+      }
+      res.send(data.rows);
+    })
+});
+
+// insert client by admin
+
+router.post("/client", (req, res) =>{
+  const {
+    FirstName,LastName,Email,Phone,EmergePhone,
+    Gender,Address,Cin,Employee,Password
+  } = req.body;
+
+  if (FirstName === '' || Email === '') {
+    res.status(400).json({ message: 'Fill the proper details' });
+  }else{
+    const sql = `INSERT INTO client ("first_name","last_name","principal_contact","address","emergency_number","gender","cin","email","password","id_employee") 
+    VALUES ('${FirstName}','${LastName}','${Phone}','${Address}','${EmergePhone}','${Gender}','${Cin}','${Email}','${Password}', ${Employee});`;
+
+    pool.query(sql, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Inserted successfully' });
+      }
+    });
+  }
+});
+
+// show all client 
+router.get("/guestdetailsubmit", (req, res) => {
+  const sql = `SELECT id_client, first_name || ' ' || last_name AS client_name, email, principal_contact FROM client;`;
+  pool.query(sql, (err, data) => {
+      if (err) {
+          console.error(err.message);
+          return res.status(500).send('Erreur de serveur');
+      }
+      res.send(data.rows);
   });
 });
