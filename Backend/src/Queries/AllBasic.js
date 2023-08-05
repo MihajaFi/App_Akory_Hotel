@@ -51,7 +51,7 @@ const getPaymentByMobileMoney = `
         WHERE payment_method.mobile_money = true; 
 ` ; 
 const getstatuscountreserved = `
-SELECT client.name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
+SELECT client.first_name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
   FROM client
   INNER JOIN reservation ON  client.id_client = reservation.id_client
   GROUP BY client.id_client;
