@@ -1,17 +1,17 @@
 function showAllClient(data) {
     const body_table = document.querySelector('#table_body');
 
-    data.map((values)=> {
+    data.map((val)=> {
         let dataInitial = "";
         dataInitial += `<tr>
-      <td>${values.id_client}</td>
-      <td>${values.client_name}</td>
-      <td>${values.email}</td>
-      <td>${values.principal_contact}</td>
+      <td>${val.id_client}</td>
+      <td>${val.client_name}</td>
+      <td>${val.email}</td>
+      <td>${val.principal_contact}</td>
       <td class="action">
       
-      <button class="btn btn-primary" onclick="editAction(${values.id_client})">Edit</button>
-      <button class="btn btn-danger" onclick="deleteAction(${values.id_client})">Delete</button>
+      <button class="btn btn-primary" onclick="editAction(${val.id_client})">Edit</button>
+      <button class="btn btn-danger" onclick="deleteAction(${val.id_client})">Delete</button>
     </td>
     </tr>`;
     body_table.innerHTML += dataInitial;
