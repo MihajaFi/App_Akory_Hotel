@@ -69,7 +69,6 @@ router.post("/index", (req, res) => {
   }
 });
 
-
 router.post("/home", (req, res) => {
   if (req.session) {
     req.session.destroy((err) => {
@@ -97,7 +96,6 @@ router.get("/roombook", (req, res) => {
   });
 });
 
-// Supprimer une réservation par son ID
 // Route pour supprimer une réservation
 router.delete("/roombook/:id", (req, res) => {
   const reservationId = req.params.id;
@@ -152,9 +150,7 @@ router.delete("/roombook/:id", (req, res) => {
   });
 });
 
-
 // Add staff
-
 router.post("/staff", (req,res) =>{
   const {
     Name,LastName,Email,Phone,Country,Password,CPassword
@@ -178,7 +174,6 @@ router.post("/staff", (req,res) =>{
 })
 
 // delete staff
-
 router.delete("/staff/:id", (req, res) => {
   const employeeId = req.params.id;
   
@@ -283,9 +278,7 @@ router.get("/statusreserved",(req,res)=>{
   })
 })
 
-
 //create roombook
-
 router.post("/roombook", (req, res) => {
   const {
     DArrived,DLeaved,number_of_person,id_client
@@ -359,7 +352,6 @@ router.get("/room", (req, res) => {
 });
 
 // dropdown
-
 router.get("/addroombook", (req, res) => {
   const sql = `SELECT id_client, first_name, last_name from client;`;
   pool.query(sql, (err, data) => {
@@ -370,8 +362,8 @@ router.get("/addroombook", (req, res) => {
       res.send(data.rows);
     })
 });
-// Show all id_reservation 
 
+// Show all id_reservation 
 router.get("/CreateRoom", (req, res) => {
   const query = `
     SELECT
@@ -390,9 +382,7 @@ router.get("/CreateRoom", (req, res) => {
   });
 });
 
-
 // insert client by client
-
 router.post("/infoClient", (req, res) =>{
   const {
     FirstName,LastName,Email,Phone,EmergePhone,
@@ -442,7 +432,6 @@ router.get("/addclient", (req, res) => {
 });
 
 // insert client by admin
-
 router.post("/client", (req, res) =>{
   const {
     FirstName,LastName,Email,Phone,EmergePhone,
@@ -467,3 +456,43 @@ router.post("/client", (req, res) =>{
   }
 });
 
+// delete client
+router.delete("/client/:id", (req, res) => {
+  const clientId = req.params.id;
+  
+  // Commencer une transaction
+  pool.query("BEGIN", (err) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).send("Erreur de serveur");
+    }
+
+    // Étape 1 : Supprimer les enregistrements liés dans la table "reservation"
+    const deleteReservationQuery = "DELETE FROM reservation WHERE id_client = $1";
+    pool.query(deleteReservationQuery, [clientId], (err, result) => {
+      if (err) {
+        console.error(err.message);
+        // Annuler la transaction en cas d'erreur
+        pool.query("ROLLBACK", () => {
+          res.status(500).send("Erreur de serveur lors de la suppression de ce client");
+        });
+      } else {
+        const deleteEmployeeQuery = "DELETE FROM client WHERE id_client = $1";
+            pool.query(deleteEmployeeQuery, [clientId], (err, result) => {
+              if (err) {
+                console.error(err.message);
+                // Annuler la transaction en cas d'erreur
+                pool.query("ROLLBACK", () => {
+                  res.status(500).send("Erreur de serveur lors de la suppression de ce client");
+                });
+              } else {
+                // Valider la transaction si tout s'est bien déroulé
+                pool.query("COMMIT", () => {
+                  res.send("Client supprimée avec succès");
+                });
+              }
+        });
+      }
+    });
+  });
+});
