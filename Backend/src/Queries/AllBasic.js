@@ -91,6 +91,13 @@ const getHotelRoomAvailable = `
         NOT (rv.date_arrived <= '2023-08-15' AND rv.leaving_date >= '2023-08-10')
         GROUP BY h.hotel_name, h.id_hotel;
 `
+const getRoomPricePricereduction = `
+        select room.room_type,price.cost_per_night,promotion.percent 
+        ,price.cost_per_night-((promotion.percent*price.cost_per_night)/100) 
+        as price_actuelle from room inner join price on room.id_room=price.id_room
+        inner join promotion on room.id_promotion=promotion.id_promotion where 
+        current_date>promotion.begin_date and current_date<promotion.end_date;
+`
 
 const AllBasic = {
     getAllRecptionist,
@@ -105,6 +112,7 @@ const AllBasic = {
     getCountReservationByHotel,
     getstatuscountreserved,
     getHotelRoomAvailable,
+    getRoomPricePricereduction,
 };
 
 export default AllBasic;
