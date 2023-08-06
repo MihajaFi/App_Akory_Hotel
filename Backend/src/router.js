@@ -111,6 +111,16 @@ router.post('/guestdetailsubmit', (req, res) => {
   }
 });
 
+//show all room with your price and reduction
+router.get("/listroom", (req,res) => {
+  pool.query(AllBasic.getRoomPricePricereduction, (err,data) =>{
+    if(err){
+      console.error(err.message);
+      return res.status(500).send('Erreur de serveur')
+    }
+    res.send(data.rows);
+  })
+})
 
 // show all booking 
 router.get("/roombook", (req, res) => {
