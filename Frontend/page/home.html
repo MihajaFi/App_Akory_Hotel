@@ -16,6 +16,7 @@
      <script src="../assets/js/booking.js" defer></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <script src="../assets/js/addClientByClient.js" defer></script>
+     <script src="../assets/js/home.js" defer></script>
 
      <style>
         #guestdetailpanel{
@@ -71,7 +72,7 @@
         <div class="middle">
             <div class="guestinfo">
               <h4>Guest information</h4>
-              <form action="" method="POST" id="getInfo" name="infoClient">
+              <form action="" method="POST" id="infoClient" name="infoClient">
                 <input type="text" name="FirstName" id="FirstName" placeholder="Enter your first name">
                 <input type="text" name="LastName" id="LastName" placeholder="Enter your last name">
                 <input type="email" name="Email" id="Email" placeholder="Enter your Email">
@@ -95,54 +96,16 @@
 
             <div class="reservationinfo">
                 <h4>Reservation information</h4>
-                <select name="RoomType" id="roomtype" class="selectinput">
+                <form action="" method="POST" id="infoReservation" name="infoReservation">
+                  <select name="RoomType" id="roomtype" class="selectinput">
                     <option value selected id="RoomType" >Type Of Room</option>
                     <option value="Superior Room">SUITE ROOM</option>
                     <option value="Deluxe Room">DELUXE ROOM</option>
+                    <option value="Guest Room">GUEST ROOM</option>
                     <option value="Single Room">SINGLE ROOM</option>
-                </select>
-                <br>
-                <h6>Room features</h6>
-                <div class="room_features">
-                  <span>
-                    <label for="seaView">Sea view</label>
-                    <input type="checkbox" value="true" name="seaView" id="seaView">
-                  </span>
-
-                  <span>
-                    <label for="VIPcategory">VIP category</label>
-                    <input type="checkbox" value="true" name="VIPcategory" id="VIPcategory">
-                  </span>
-
-                  <span>
-                    <label for="hotWater">Hot water</label>
-                    <input type="checkbox" value="true" name="hotWater" id="hotWater">
-                  </span>
-
-                  <span>
-                    <label for="wifiAvailable">Wifi available</label>
-                    <input type="checkbox" value="true" name="wifiAvailable" id="wifiAvailable">
-                  </span>
-
-                  <span>
-                    <label for="roomService">room service</label>
-                    <input type="checkbox" value="true" name="roomService" id="roomService">
-                  </span>
-
-                  <span>
-                    <label for="miniBar">Mini bar</label>
-                    <input type="checkbox" value="true" name="miniBar" id="miniBar">
-                  </span>
-
-                  <span>
-                    <label for="flatScreen">Flat screen</label>
-                    <input type="checkbox" value="true" name="flatScreen" id="flatScreen">
-                  </span>
-                  
-                </div>
-                <br>
-                <input type="number" name="PersNbr" id="PersNbr" placeholder="Number of person">
-                <div class="datesection">
+                  </select>
+                  <input type="number" name="PersNbr" id="PersNbr" placeholder="Number of person">
+                  <div class="datesection">
                     <span>
                         <label for="cin"> Check-In</label>
                         <input name="cin" id="cin" type ="date">
@@ -151,13 +114,205 @@
                         <label for="cin"> Check-Out</label>
                         <input name="cout" id="cout" type ="date">
                     </span>
-                </div>
-                <br>
-                <button class="btn btn-success" name="guestdetailsubmitreservation" type="submit">OK</button>
+                  </div>
+                  <button class="btn btn-success" name="guestdetailsubmitinfores" type="submit">OK</button>
+                </form>
+                <div></div>
             </div>
         </div>
         <div class="footer">
             <button class="btn btn-success" name="guestdetailsubmit" type="reset">Submit</button>
+        </div>
+        </div>
+      </div>
+
+      <div id="InfoRoomSuite">
+        <div class="guestdetailpanelform2">
+          <div class="head">
+            <h2>SUITE ROOM</h2>
+            <i class="fa-solid fa-circle-xmark" onclick="closeboxsuit()"></i>
+        </div>
+        <div class="middle">
+            <div class="guestinfo">
+              <h3>Room features</h3>
+              <div class="room_features">
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>VIP category</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Sea view</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Flat screen</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>room service</h5>
+                </span>
+                
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Mini bar</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Wifi available</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Hot water</h5>
+                </span>
+              </div>
+              <div></div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="reservationinfo">
+              <h3>Room price</h3>
+              <span>
+                <h1>300 000.00 Ar / nigth</h1>
+              </span>
+              <span></span>
+            </div>
+        </div>
+        </div>
+      </div>
+
+      <div id="InfoRoomdeluxe">
+        <div class="guestdetailpanelform2">
+          <div class="head">
+            <h2>DELUXE ROOM</h2>
+            <i class="fa-solid fa-circle-xmark" onclick="closeboxdeluxe()"></i>
+        </div>
+        <div class="middle">
+            <div class="guestinfo">
+              <h3>Room features</h3>
+              <div class="room_features">
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Flat screen</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>room service</h5>
+                </span>
+                
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Mini bar</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Wifi available</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Hot water</h5>
+                </span>
+              </div>
+              <div></div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="reservationinfo">
+              <h3>Room price</h3>
+              <span>
+                <h1>200 000.00 Ar / nigth</h1>
+              </span>
+              <span></span>
+            </div>
+        </div>
+        </div>
+      </div>
+
+      <div id="InfoRoomguest">
+        <div class="guestdetailpanelform2">
+          <div class="head">
+            <h2>GUEST ROOM</h2>
+            <i class="fa-solid fa-circle-xmark" onclick="closeboxguest()"></i>
+        </div>
+        <div class="middle">
+            <div class="guestinfo">
+              <h3>Room features</h3>
+              <div class="room_features">
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Mini bar</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Wifi available</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Hot water</h5>
+                </span>
+              </div>
+              <div></div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="reservationinfo">
+              <h3>Room price</h3>
+              <span>
+                <h1>90 000.00 Ar / nigth</h1>
+              </span>
+              <span></span>
+            </div>
+        </div>
+        </div>
+      </div>
+
+      <div id="InfoRoomsingle">
+        <div class="guestdetailpanelform2">
+          <div class="head">
+            <h2>SINGLE ROOM</h2>
+            <i class="fa-solid fa-circle-xmark" onclick="closeboxsingle()"></i>
+        </div>
+        <div class="middle">
+            <div class="guestinfo">
+              <h3>Room features</h3>
+              <div class="room_features">
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Wifi available</h5>
+                </span>
+
+                <span>
+                  <i class="fa-solid fa-check-circle iconRoom"></i>
+                  <h5>Hot water</h5>
+                </span>
+              </div>
+              <div></div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="reservationinfo">
+              <h3>Room price</h3>
+              <span>
+                <h1>50 000.00 Ar / nigth</h1>
+              </span>
+              <span></span>
+            </div>
         </div>
         </div>
       </div>
@@ -174,50 +329,32 @@
           <div class="hotelphoto h1"></div>
           <div class="roomdata">
             <h2>Room VIP</h2>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-              <i class="fa-solid fa-spa"></i>
-              <i class="fa-solid fa-dumbbell"></i>
-              <i class="fa-solid fa-person-swimming"></i>
-            </div>
             <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
+            <button class="btn btn-success bookbtn" onclick="openinfosuit()">Info</button>
           </div>
         </div>
         <div class="roombox">
           <div class="hotelphoto h2"></div>
           <div class="roomdata">
             <h2>Luxury Room</h2>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-              <i class="fa-solid fa-spa"></i>
-              <i class="fa-solid fa-dumbbell"></i>
-            </div>
             <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
+            <button class="btn btn-success bookbtn" onclick="openroomdeluxe()">Info</button>
           </div>
         </div>
         <div class="roombox">
           <div class="hotelphoto h3"></div>
           <div class="roomdata">
             <h2>Guest Room</h2>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-              <i class="fa-solid fa-spa"></i>
-            </div>
             <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
+            <button class="btn btn-success bookbtn" onclick="openroomguest()">Info</button>
           </div>
         </div>
         <div class="roombox">
           <div class="hotelphoto h4"></div>
           <div class="roomdata">
             <h2>Single Room</h2>
-            <div class="services">
-              <i class="fa-solid fa-wifi"></i>
-              <i class="fa-solid fa-burger"></i>
-            </div>
             <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
+            <button class="btn btn-success bookbtn" onclick="openroomsingle()">Info</button>
           </div>
         </div>
       </div>
@@ -257,16 +394,4 @@
       </div>
     </section>
   </body>
-  
-  <script>
-  
-      var bookbox = document.getElementById("guestdetailpanel");
-  
-      openbookbox = () =>{
-        bookbox.style.display = "flex";
-      }
-      closebox = () =>{
-        bookbox.style.display = "none";
-      }
-  </script>
 </html>
