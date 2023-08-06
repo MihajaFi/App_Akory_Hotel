@@ -91,6 +91,13 @@ const getHotelRoomAvailable = `
         GROUP BY h.hotel_name, h.id_hotel;
 `
 
+const getPaymentWithNameOfReceptionist = `
+
+select payment.id_payment, receptionist.first_name, receptionist.last_name 
+FROM payment INNER JOIN receptionist 
+ON payment.id_employee = receptionist.id_employee;
+`
+
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
@@ -104,6 +111,7 @@ const AllBasic = {
     getCountReservationByHotel,
     getstatuscountreserved,
     getHotelRoomAvailable,
+    getPaymentWithNameOfReceptionist
 };
 
 export default AllBasic;
