@@ -9,7 +9,7 @@ function AddClient(data) {
         Gender : formData.get('Gender'),
         Cin : formData.get('Cin'),
         Address : formData.get('Address'),
-        Password : formData.get('Password'),
+        password : formData.get('password'),
         Cpassword : formData.get('Cpassword')
     };
 
