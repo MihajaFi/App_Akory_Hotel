@@ -30,3 +30,8 @@ $(document).ready(function() {
     history.go(1);
   };
 });
+const liste = document.getElementById("listchbr");
+liste.addEventListener('click',function(event){
+      event.preventDefault
+      window.location.href="./listroom.html"
+})
