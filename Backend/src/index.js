@@ -13,9 +13,13 @@ app.use(router);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
-  secret: 'your-secret-key',
+  secret: 'dfsdfkmqsdlkfjeismdknqsdfkjze',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
+  cookie: {
+    secure: true, 
+    sameSite: 'none',
+  }
 }));
 
 

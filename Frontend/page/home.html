@@ -14,6 +14,8 @@
      <link rel="stylesheet" href="../assets/css/styles.css">
      <link rel="stylesheet" href="../../Frontend/Admin/assets/css/roombook.css">
      <script src="../assets/js/booking.js" defer></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
      <style>
         #guestdetailpanel{
@@ -33,9 +35,10 @@
       <ul>
         <li><a href="#firstsection">Home</a></li>
         <li><a href="#secondsection">Rooms</a></li>
+        <li><a href="hotel.html">Hotels</a></li>
         <li><a href="#thirdsection">Services</a></li>
         <li><a href="#contactus">contact us</a></li>
-        <a href="../index.html"><button class="btn btn-danger">Logout</button></a>
+        <a  id="LogoutButton"  ><button  class="btn btn-danger">Logout</button></a>
       </ul>
     </nav>
   
@@ -144,7 +147,14 @@
   <section id="secondsection"> 
     <img src="./image/homeanimatebg.svg">
     <div class="ourroom">
-      <h1 class="head">Our room</h1>
+      <div id="chambres">
+        <div>
+          <h1 class="head">Our room</h1>
+        </div>
+        <div>
+          <button id="listchbr" class="btn btn-warning">List room with promotion</button>
+        </div>
+      </div>
       <div class="roomselect">
         <div class="roombox">
           <div class="hotelphoto h1"></div>

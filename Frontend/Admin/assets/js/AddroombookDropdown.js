@@ -10,7 +10,7 @@ function populateDropdown(data) {
 }
 
 function fetchDataFromDatabase() {
-  fetch("http://localhost:5000/roombook") 
+  fetch("http://localhost:5000/addroombook") 
       .then((response) => response.json())
       .then((data) => {
           populateDropdown(data);

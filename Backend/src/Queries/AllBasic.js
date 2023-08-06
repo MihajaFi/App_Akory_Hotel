@@ -7,7 +7,7 @@ const getAllpaymentByClient = `
 
 const getAllRecptionist = `
         SELECT 
-        r.id_employee, r.first_name, r.last_name, r.email, r.work_contact, 
+        r.id_employee, r.first_name ||' '|| r.last_name AS staff_name, r.email, r.work_contact, 
         h.hotel_name,
         p.province_name
         FROM 
@@ -82,7 +82,22 @@ const getAllSignupUser =  `
         FROM signup
         WHERE Email = $1 AND Password = $2
 `;
-
+const getHotelRoomAvailable = `
+        SELECT h.hotel_name
+        FROM hotel h
+        LEFT JOIN room r ON h.id_hotel = r.id_hotel
+        LEFT JOIN reservation rv ON r.id_reservation = rv.id_reservation
+        WHERE rv.id_reservation IS NULL OR 
+        NOT (rv.date_arrived <= '2023-08-15' AND rv.leaving_date >= '2023-08-10')
+        GROUP BY h.hotel_name, h.id_hotel;
+`
+const getRoomPricePricereduction = `
+        select room.room_type,price.cost_per_night,promotion.percent 
+        ,price.cost_per_night-((promotion.percent*price.cost_per_night)/100) 
+        as price_actuelle from room inner join price on room.id_room=price.id_room
+        inner join promotion on room.id_promotion=promotion.id_promotion where 
+        current_date>promotion.begin_date and current_date<promotion.end_date;
+`
 
 const AllBasic = {
     getAllRecptionist,
@@ -96,6 +111,8 @@ const AllBasic = {
     getPaymentByMobileMoney,
     getCountReservationByHotel,
     getstatuscountreserved,
+    getHotelRoomAvailable,
+    getRoomPricePricereduction,
 };
 
 export default AllBasic;
