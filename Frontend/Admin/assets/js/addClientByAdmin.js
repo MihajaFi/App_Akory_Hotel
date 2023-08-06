@@ -10,7 +10,7 @@ function AddClient(data) {
         Cin : formData.get('Cin'),
         Address : formData.get('Address'),
         Employee : formData.get('Employee'),
-        Password : formData.get('Password'),
+        password : formData.get('password'),
         Cpassword : formData.get('Cpassword')
     };
 
