@@ -16,7 +16,7 @@ const searchFun = () => {
     for (var i = 0; i < tr.length; i++) {
         let tdId = tr[i].getElementsByTagName('td')[0]; // Première colonne (ID de réservation)
         let tdName = tr[i].getElementsByTagName('td')[1]; // Deuxième colonne (Nom)
-        let tdroom = tr[i].getElementsByTagName('td')[7]; // Deuxième colonne (Nom)
+        let tdroom = tr[i].getElementsByTagName('td')[6]; // Deuxième colonne (Nom)
 
         if (tdId || tdName || tdroom) {
             let textId = tdId.textContent || tdId.innerHTML;
