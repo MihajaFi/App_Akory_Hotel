@@ -4,7 +4,8 @@ function AddRoomBook(data) {
         DArrived : formData.get('DArrived'),
         DLeaved : formData.get('DLeaved'),
         number_of_person : formData.get('PerNbr'),
-        id_client : formData.get('Country')
+        id_client : formData.get('Country'),
+        typeroom : formData.get('roomType')
     };
 
     fetch("http://localhost:5000/roombook", {
