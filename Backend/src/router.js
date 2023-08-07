@@ -392,10 +392,10 @@ router.post("/CreateRoom", (req, res) => {
                 res.status(400).json({ message: 'Hotel not found' });
               } else {
                 const hotel_id = hotelResult.rows[0].id_hotel;
-                const getReservationIdQuery = `SELECT reservation.id_reservation
+                const getReservationIdQuery = `SELECT reservation.id_reservation, reservation.room_type
                 FROM reservation 
                 INNER JOIN client ON reservation.id_client = client.id_client 
-                WHERE client.first_name || ' ' || client.last_name = $1;
+                WHERE client.first_name || ' ' || client.last_name ||' -- '||reservation.room_type = $1;
                 `;
 
                 pool.query(getReservationIdQuery, [Client], (error, reservationResult) => {
