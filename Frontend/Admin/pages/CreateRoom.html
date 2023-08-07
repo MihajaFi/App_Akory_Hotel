@@ -37,8 +37,11 @@
            <span>
              <a  style="text-decoration: none; color: red;font-family: Arial, Helvetica, sans-serif; font-size: 20px;" href="./room.html">X</a>
            </span>
-            <label for="room_number">Number:</label>
-            <input type="text" id="room_number" name="room_number">
+
+            <label for="Client">Client :</label>
+            <select id="Client" name="Client">  
+            </select>
+
             <label for="room_type">Room Type:</label>
              <select id="room_type" name="room_type">
              <option>Type of Room</option>
@@ -47,21 +50,26 @@
              <option value="GUEST" data-features-id="3">GUEST ROOM</option>
              <option value="SINGLE" data-features-id="4">SINGLE ROOM</option>
             </select>
+
+            <label for="room_number">Number:</label>
+            <input type="text" id="room_number" name="room_number">
+
             <label for="capacity_room">Capacity:</label>
             <input type="number" id="capacity_room" name="capacity_room">
-            <label for="Client">Client :</label>
-            <select id="Client" name="Client">  
-            </select>
+
             <label for="name">Promotion :</label>
             <select id="name" name="name">  
             </select>
+
             <label for="id_features">Features ID:</label>
             <select id="id_features" name="id_features">  
             </select>
             <input type="hidden" id="hidden_features_id" name="hidden_features_id">
+
             <label for="hotel_name">Hotel :</label>
             <select  id="hotel_name" name="hotel_name">  
             </select>
+
             <br>
             <button  type="submit" class="add-button">Add</button>
         </form>
