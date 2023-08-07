@@ -676,12 +676,19 @@ router.get('/totalAmountStatus',(req,res)=>{
 // Total reservation
 router.get('/dashboard', async (req, res) => {
   try {
-    const result = await pool.query('SELECT COUNT(*) as total_booked_room FROM reservation');
+    const result = await pool.query(`
+    SELECT
+      (SELECT COUNT(*) FROM reservation) AS total_booked_room,
+      (SELECT COUNT(*) FROM receptionist) AS total_staffs,
+      (SELECT SUM(cost_per_night) FROM price) AS total_profit;`);
     const totalBookedRoom = result.rows[0].total_booked_room;
-    res.send(totalBookedRoom.toString());
+    const totalStaffs = result.rows[0].total_staffs;
+    const totalProfit = result.rows[0].total_profit;
+    
+    res.json({ totalBookedRoom, totalStaffs, totalProfit });
   } catch (err) {
-    console.error('Error retrieving total booked room:', err);
-    res.status(500).send('Error retrieving total booked room');
+    console.error('Error retrieving dashboard data:', err);
+    res.status(500).send('Error retrieving dashboard data');
   }
 });
 
