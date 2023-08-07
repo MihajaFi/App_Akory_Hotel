@@ -113,9 +113,9 @@ const getAllRooms = `SELECT id_room , "room_number", room_type, capacity_room FR
 const getDropDownAddRoombook = `SELECT id_client, first_name, last_name from client;`;
 
 const getAllIdReservation = `SELECT
-(SELECT  ARRAY_AGG(client.first_name || ' ' || client.last_name) FROM reservation inner join client ON reservation.id_client = client.id_client ) as reservations,
-(SELECT ARRAY_AGG(hotel_name) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
-(SELECT ARRAY_AGG(name) FROM promotion WHERE id_promotion IS NOT NULL) as promotions;`;
+      (SELECT  ARRAY_AGG(client.first_name || ' ' || client.last_name ||' -- '||reservation.room_type) FROM reservation inner join client ON reservation.id_client = client.id_client ) as reservations,
+      (SELECT ARRAY_AGG(hotel_name) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
+      (SELECT ARRAY_AGG(name) FROM promotion WHERE id_promotion IS NOT NULL) as promotions;`;
 
 const getAllCustomer = `SELECT id_client,first_name || ' ' || last_name AS client_name , email, principal_contact 
         FROM client;`;
