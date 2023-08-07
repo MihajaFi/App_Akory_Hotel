@@ -1,14 +1,14 @@
 function AddRoomBook(data) {
     const formData = new FormData(data);
     const roomBookData = {
-        DArrived : formData.get('DArrived'),
-        DLeaved : formData.get('DLeaved'),
-        number_of_person : formData.get('PerNbr'),
-        id_client : formData.get('Country'),
-        typeroom : formData.get('roomType')
+        RoomType : formData.get('RoomType'),
+        cin : formData.get('cin'),
+        cout : formData.get('cout'),
+        ClientName : formData.get('ClientName'),
+        PersNbr : formData.get('PersNbr')
     };
 
-    fetch("http://localhost:5000/roombook", {
+    fetch("http://localhost:5000/guestdetailsubmitinfores", {
         method : "POST",
         headers : {
             "Content-Type":"application/json",
@@ -18,7 +18,6 @@ function AddRoomBook(data) {
     .then((response) => {
         if (response.ok) {
           alert('Inserted successfully')
-          window.location.href = './roombook.html'
         } else {
           throw new Error("Erreur lors de l'insertion");
         }
@@ -28,7 +27,7 @@ function AddRoomBook(data) {
       });
 }
 
-document.getElementById('guestdetailpanel').addEventListener("submit", (e) =>{
+document.getElementById('infoReservation').addEventListener("submit", (e) =>{
     e.preventDefault();
     AddRoomBook(e.target);
 });

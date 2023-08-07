@@ -14,9 +14,11 @@
      <link rel="stylesheet" href="../assets/css/styles.css">
      <link rel="stylesheet" href="../../Frontend/Admin/assets/css/home.css">
      <script src="../assets/js/booking.js" defer></script>
+     <script src="../assets/js/listroompromotion.js" defer></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
      <script src="../assets/js/addClientByClient.js" defer></script>
-     <script src="../assets/js/home.js" defer></script>
+     <script src="../assets/js/homeClientDropdown.js" defer></script>
+     <script src="../assets/js/roombookByClient.js" defer></script>
 
      <style>
         #guestdetailpanel{
@@ -97,13 +99,16 @@
             <div class="reservationinfo">
                 <h4>Reservation information</h4>
                 <form action="" method="POST" id="infoReservation" name="infoReservation">
-                  <select name="RoomType" id="roomtype" class="selectinput">
-                    <option value selected id="RoomType" >Type Of Room</option>
+                  <select name="RoomType" id="RoomType" class="selectinput">
+                    <option value selected>Type of room</option>
                     <option value="Superior Room">SUITE ROOM</option>
                     <option value="Deluxe Room">DELUXE ROOM</option>
                     <option value="Guest Room">GUEST ROOM</option>
                     <option value="Single Room">SINGLE ROOM</option>
                   </select>
+                  <select name="ClientName" class="selectinput" id="ClientName">
+                    <option value="" selected>Choose your name</option>
+                </select>
                   <input type="number" name="PersNbr" id="PersNbr" placeholder="Number of person">
                   <div class="datesection">
                     <span>
@@ -404,7 +409,7 @@
 
 
   <section class="footers" style="margin-top: 5cm;">
-      <footer class="footer">
+      <footer class="footer2">
         <div class="waves">
           <div class="wave" id="wave1"></div>
           <div class="wave" id="wave2"></div>
@@ -454,15 +459,5 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
   </body>  
-  <script>
-  
-      var bookbox = document.getElementById("guestdetailpanel");
-  
-      openbookbox = () =>{
-        bookbox.style.display = "flex";
-      }
-      closebox = () =>{
-        bookbox.style.display = "none";
-      }
-  </script>
+  <script src="../assets/js/home.js"></script>
 </html>

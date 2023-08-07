@@ -10,7 +10,7 @@ function showAllBooking(data) {
       <td>${values.date_arrived}</td>
       <td>${values.leaving_date}</td>
       <td>${values.number_of_person}</td>
-      <td>${values.cin}</td>
+      <td>${values.room_type}</td>
       <td class="action">
       
       <button class="btn btn-primary" onclick="editAction(${values.id_reservation})">Edit</button>
