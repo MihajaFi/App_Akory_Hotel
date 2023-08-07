@@ -257,6 +257,15 @@ router.get("/canceled", (req, res) => {
     res.send(data.rows);
   });
 });
+router.get("/Receptionist",(req,res)=>{
+  pool.query(AllBasic.getListOfPaymentWithNameOfReceptionist,(err,data)=>{
+    if(err){
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
 
 router.get("/Sum", (req, res) => {
   pool.query(AllBasic.getPaymentByMobileMoney, (err, data) => {

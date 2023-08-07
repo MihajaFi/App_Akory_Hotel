@@ -91,6 +91,11 @@ const getHotelRoomAvailable = `
         NOT (rv.date_arrived <= '2023-08-15' AND rv.leaving_date >= '2023-08-10')
         GROUP BY h.hotel_name, h.id_hotel;
 `
+const getListOfPaymentWithNameOfReceptionist = `
+select payment.id_payment, receptionist.first_name, receptionist.last_name
+from payment inner join receptionist on
+payment.id_employee = receptionist.id_employee;
+`
 
 const AllBasic = {
     getAllRecptionist,
@@ -105,6 +110,7 @@ const AllBasic = {
     getCountReservationByHotel,
     getstatuscountreserved,
     getHotelRoomAvailable,
+    getListOfPaymentWithNameOfReceptionist
 };
 
 export default AllBasic;
