@@ -576,7 +576,7 @@ router.get("/room/:room_numberId", (req, res) => {
 
 // home client dropdown
 router.get("/ClientName", (req, res) => {
-  pool.query(sql, (err, data) => {
+  pool.query(AllBasic.getHomeClientDropdown, (err, data) => {
       if (err) {
           console.error(err.message);
           return res.status(500).send('Erreur de serveur');
