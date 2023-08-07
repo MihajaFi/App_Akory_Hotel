@@ -10,7 +10,7 @@ function rooms(data){
             <p>Room : ${values.room_number}</p>
             <h3>${values.room_type}</h3>
             <p>Capacity :  ${values.capacity_room}</p>
-            <a href='#'><button class='btn btn-danger'>Delete</button></a>
+            <a href="#" onclick='deleteRoom(${values.id_room})'><button class='btn btn-danger'>Delete</button></a>
         </div>
         </div>`;
     room.innerHTML += dataOfRoom;

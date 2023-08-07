@@ -29,7 +29,7 @@ CREATE TABLE receptionist (
     last_name    varchar(200) NOT NULL,
     password     varchar(50) NOT NULL,
     email        varchar(200) NOT NULL,
-    work_contact bigint NOT NULL,
+    work_contact VARCHAR(50) NOT NULL,
     id_province int REFERENCES province_available(id_province)
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE client (
     address           varchar(200) NOT NULL,
     emergency_number  varchar(50) NOT NULL,
     gender            char(1) NOT NULL,
-    CIN               int NOT NULL,
+    CIN               VARCHAR(50) NOT NULL,
     email             varchar(200) NOT NULL,
     password          varchar(50) NOT NULL,
     id_employee int REFERENCES receptionist(id_employee)
