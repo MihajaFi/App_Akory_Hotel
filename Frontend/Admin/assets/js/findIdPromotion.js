@@ -1,5 +1,5 @@
 function AllIdPromotion(data) {
-    const room = document.getElementById("id_promotion");
+    const room = document.getElementById("name");
     let dataOfRoom = "";
     
     data[0].promotions.forEach((id) => {

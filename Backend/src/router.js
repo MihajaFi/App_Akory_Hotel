@@ -362,30 +362,75 @@ router.post("/roombook", (req, res) => {
     }
   });
 //create room 
-
 router.post("/CreateRoom", (req, res) => {
   const {
-    room_number, room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel
+    room_number, room_type, capacity_room, Client, name, hotel_name, id_features 
   } = req.body;
 
-  if (room_number === '' || room_type === '' || capacity_room === '') {
+  if (room_number === '' || room_type === '' || capacity_room === '' || name === '' || hotel_name === '' || id_features  === '') {
     res.status(400).json({ message: 'Fill the proper details' });
   } else {
-    const sql = `INSERT INTO room ("room_number", room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel)
-                 VALUES ($1, $2, $3, $4, $5, $6,$7);`;
+    const getPromotionIdQuery = `SELECT id_promotion FROM promotion WHERE name = $1`;
 
-    const values = [room_number, room_type, capacity_room, id_reservation, id_promotion, id_features,id_hotel];
-    pool.query(sql, values, (error, result) => {
+    pool.query(getPromotionIdQuery, [name], (error, promotionResult) => {
       if (error) {
-        console.error('Error executing query:', error);
+        console.error('Error executing promotion query:', error);
         res.status(500).json({ message: 'Something went wrong' });
       } else {
-        res.status(200).json({ message: 'Add room successful' });
+        if (promotionResult.rowCount === 0) {
+          res.status(400).json({ message: 'Promotion not found' });
+        } else {
+          const promotion_id = promotionResult.rows[0].id_promotion;
+          const getHotelIdQuery = `SELECT id_hotel FROM hotel WHERE hotel_name = $1`;
+
+          pool.query(getHotelIdQuery, [hotel_name], (error, hotelResult) => {
+            if (error) {
+              console.error('Error executing hotel query:', error);
+              res.status(500).json({ message: 'Something went wrong' });
+            } else {
+              if (hotelResult.rowCount === 0) {
+                res.status(400).json({ message: 'Hotel not found' });
+              } else {
+                const hotel_id = hotelResult.rows[0].id_hotel;
+                const getReservationIdQuery = `SELECT reservation.id_reservation
+                FROM reservation 
+                INNER JOIN client ON reservation.id_client = client.id_client 
+                WHERE client.first_name || ' ' || client.last_name = $1;
+                `;
+
+                pool.query(getReservationIdQuery, [Client], (error, reservationResult) => {
+                  if (error) {
+                    console.error('Error executing reservation query:', error);
+                    res.status(500).json({ message: 'Something went wrong' });
+                  } else {
+                    if (reservationResult.rowCount === 0) {
+                      res.status(400).json({ message: 'Reservation not found' });
+                    } else {
+                      const id_reservation = reservationResult.rows[0].id_reservation;
+                      const insertRoomQuery = `
+                        INSERT INTO room ("room_number", room_type, capacity_room, id_reservation, id_promotion, id_hotel, id_features)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7)
+                      `;
+                      const values = [room_number, room_type, capacity_room, id_reservation, promotion_id, hotel_id, id_features ];
+                      pool.query(insertRoomQuery, values, (error, result) => {
+                        if (error) {
+                          console.error('Error executing insert query:', error);
+                          res.status(500).json({ message: 'Something went wrong' });
+                        } else {
+                          res.status(200).json({ message: 'Add room successful' });
+                        }
+                      });
+                    }
+                  }
+                });
+              }
+            }
+          });
+        }
       }
     });
   }
 });
-
 // Get all rooms
 router.get("/room", (req, res) => {
   pool.query(AllBasic.getAllRooms, (err, data) => {
@@ -422,7 +467,18 @@ router.get("/addroombook", (req, res) => {
 
 // Show all id_reservation 
 router.get("/CreateRoom", (req, res) => {
+
+  const query = `
+    SELECT
+      (SELECT  ARRAY_AGG(client.first_name || ' ' || client.last_name) FROM reservation inner join client ON reservation.id_client = client.id_client ) as reservations,
+      (SELECT ARRAY_AGG(hotel_name) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
+      (SELECT ARRAY_AGG(name) FROM promotion WHERE id_promotion IS NOT NULL) as promotions;
+  `;
+
+  pool.query(query, (err, data) => {
+
   pool.query(AllBasic.getAllIdReservation, (err, data) => {
+
     if (err) {
       console.error(err.message);
       return res.status(500).send('Erreur de serveur');
