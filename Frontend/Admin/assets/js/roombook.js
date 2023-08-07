@@ -16,13 +16,16 @@ const searchFun = () => {
     for (var i = 0; i < tr.length; i++) {
         let tdId = tr[i].getElementsByTagName('td')[0]; // Première colonne (ID de réservation)
         let tdName = tr[i].getElementsByTagName('td')[1]; // Deuxième colonne (Nom)
+        let tdroom = tr[i].getElementsByTagName('td')[6]; // Deuxième colonne (Nom)
 
-        if (tdId || tdName) {
+        if (tdId || tdName || tdroom) {
             let textId = tdId.textContent || tdId.innerHTML;
             let textName = tdName.textContent || tdName.innerHTML;
+            let textRoom = tdroom.textContent || tdroom.innerHTML;
 
             // Recherche dans l'ID de réservation OU le nom
-            if (textId.toUpperCase().indexOf(filter) > -1 || textName.toUpperCase().indexOf(filter) > -1) {
+            if (textId.toUpperCase().indexOf(filter) > -1 || textName.toUpperCase().indexOf(filter) > -1 ||
+            textRoom.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
             } else {
                 tr[i].style.display = "none";

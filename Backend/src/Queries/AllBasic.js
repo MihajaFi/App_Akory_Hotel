@@ -19,7 +19,7 @@ const getAllRecptionist = `
 ` ;
 
 const getAllReservation = `
-        select reservation.id_reservation , client.first_name || ' ' || client.last_name AS client_name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
+        select reservation.id_reservation , client.first_name || ' ' || client.last_name AS client_name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date , reservation.room_type
         from reservation 
         inner join client ON reservation.id_client = client.id_client ;
 ` ;
@@ -39,7 +39,7 @@ const getCountClientCancelled = `
         FROM client c
         LEFT JOIN reservation r ON c.id_client = r.id_client
         LEFT JOIN cancel ca ON r.id_reservation = ca.id_reservation
-        GROUP BY c.id_client, c.first_name;
+        GROUP BY c.id_client, c.first_name ORDER BY c.id_client ASC;
 
 `;
 
@@ -62,7 +62,7 @@ const getCountReservationByHotel = `
         FROM hotel h
         LEFT JOIN room rm ON h.id_hotel = rm.id_hotel
         LEFT JOIN reservation r ON rm.id_reservation = r.id_reservation
-        GROUP BY h.id_hotel, h.hotel_name;
+        GROUP BY h.id_hotel, h.hotel_name ORDER BY h.id_hotel ASC;
 `
 const getAllSignupStaff = `
         SELECT email, password
@@ -106,6 +106,27 @@ const getListOfPaymentWithNameOfReceptionist = `
         payment.id_employee = receptionist.id_employee;
 `
 
+const getAllRooms = `SELECT id_room , "room_number", room_type, capacity_room FROM room 
+        ORDER BY room_number ASC ;`;
+
+
+const getDropDownAddRoombook = `SELECT id_client, first_name, last_name from client;`;
+
+const getAllIdReservation = `SELECT
+        (SELECT ARRAY_AGG(id_reservation) FROM reservation) as reservations,
+        (SELECT ARRAY_AGG(id_hotel) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
+        (SELECT ARRAY_AGG(id_promotion) FROM promotion WHERE id_promotion IS NOT NULL) as promotions,
+        (SELECT ARRAY_AGG(id_features) FROM room_features WHERE id_features IS NOT NULL) as room_features;`;
+
+const getAllCustomer = `SELECT id_client,first_name || ' ' || last_name AS client_name , email, principal_contact 
+        FROM client;`;
+
+const getDropdownClient = `SELECT id_employee, first_name, last_name from receptionist;`;
+
+const getRoomByNumberRoom = `SELECT * FROM room WHERE room_number LIKE $1 || '%' LIMIT 8;`;
+
+const getHomeClientDropdown = `SELECT id_client, first_name, last_name from client;`;
+
 const AllBasic = {
     getAllRecptionist,
     getAllReservation,
@@ -120,7 +141,14 @@ const AllBasic = {
     getstatuscountreserved,
     getHotelRoomAvailable,
     getRoomPricePricereduction,
-    getListOfPaymentWithNameOfReceptionist
+    getListOfPaymentWithNameOfReceptionist,
+    getAllRooms,
+    getDropDownAddRoombook,
+    getAllIdReservation,
+    getAllCustomer,
+    getDropdownClient,
+    getRoomByNumberRoom,
+    getHomeClientDropdown
 };
 
 export default AllBasic;

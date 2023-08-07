@@ -52,6 +52,7 @@ CREATE TABLE reservation (
     date_arrived Date NOT NULL,
     leaving_date Date NOT NULL,
     number_of_person int NOT NULL,
+    room_type VARCHAR(200) NOT NULL,
     id_client int REFERENCES client(id_client)
 );
 
