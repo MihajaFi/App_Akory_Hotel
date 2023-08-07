@@ -17,7 +17,6 @@
      <script src="../../Admin/assets/js/findIdReservation.js" defer></script>
      <script src="../../Admin/assets/js/findIdPromotion.js" defer></script>
      <script src="../../Admin/assets/js/findIdHotel.js" defer></script>
-     <script src="../../Admin/assets/js/findIdFeture.js" defer></script>
 
 
 </head>
@@ -33,7 +32,7 @@
     </nav>
 
     <section style="max-height: 400px; overflow-y: auto;" >  
-    <div class="roomsCreat">
+    <div class="roomsCreat" id="xyz">
         <form id="room-form" method="post" >
            <span>
              <a  style="text-decoration: none; color: red;font-family: Arial, Helvetica, sans-serif; font-size: 20px;" href="./room.html">X</a>
@@ -41,29 +40,49 @@
             <label for="room_number">Number:</label>
             <input type="text" id="room_number" name="room_number">
             <label for="room_type">Room Type:</label>
-            <select id="room_type" name="room_type">
-              <option value="Simple">Simple</option>
-              <option value="Vip">Vip</option>
+             <select id="room_type" name="room_type">
+             <option>Type of Room</option>
+             <option value="SUITE" data-features-id="1">SUITE ROOM </option>
+             <option value="DELUXE" data-features-id="2">DELUXE ROOM</option>
+             <option value="GUEST" data-features-id="3">GUEST ROOM</option>
+             <option value="SINGLE" data-features-id="4">SINGLE ROOM</option>
             </select>
             <label for="capacity_room">Capacity:</label>
             <input type="number" id="capacity_room" name="capacity_room">
-            <label for="id_reservation">Reservation ID:</label>
-            <select id="id_reservation" name="id_reservation">  
+            <label for="Client">Client :</label>
+            <select id="Client" name="Client">  
             </select>
-            <label for="id_promotion">Promotion ID:</label>
-            <select id="id_promotion" name="id_promotion">  
+            <label for="name">Promotion :</label>
+            <select id="name" name="name">  
             </select>
             <label for="id_features">Features ID:</label>
             <select id="id_features" name="id_features">  
             </select>
-            <label for="id_hotel">Hotel ID:</label>
-            <select  id="id_hotel" name="id_hotel">  
+            <input type="hidden" id="hidden_features_id" name="hidden_features_id">
+            <label for="hotel_name">Hotel :</label>
+            <select  id="hotel_name" name="hotel_name">  
             </select>
             <br>
             <button  type="submit" class="add-button">Add</button>
         </form>
     </div>
 </section>
-    
+
+<script>
+    const roomTypeSelect = document.getElementById('room_type');
+    const featuresSelect = document.getElementById('id_features');
+    const hiddenFeaturesId = document.getElementById('hidden_features_id');
+  
+    roomTypeSelect.addEventListener('change', function() {
+      const selectedOption = roomTypeSelect.options[roomTypeSelect.selectedIndex];
+      const featuresId = selectedOption.dataset.featuresId;
+      featuresSelect.innerHTML = '';
+      const newOption = document.createElement('option');
+      newOption.value = featuresId;
+      newOption.textContent = featuresId;
+      featuresSelect.appendChild(newOption);
+      hiddenFeaturesId.value = featuresId;
+    });
+  </script>
 </body>
 </html>
