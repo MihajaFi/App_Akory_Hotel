@@ -592,3 +592,15 @@ router.get("/room/:room_numberId", (req, res) => {
     res.send(data.rows);
   });
 });
+
+// show total Amount Status
+
+router.get('/totalAmountStatus',(req,res)=>{
+  pool.query(AllBasic.getAllpaymentByClient,(err,data)=>{
+    if(err){
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+})
