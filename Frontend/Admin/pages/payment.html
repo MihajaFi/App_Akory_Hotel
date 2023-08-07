@@ -15,12 +15,85 @@
 	<link rel="stylesheet" href="../assets/css/roombook.css">
     <script src="../assets/js/ClientNoPay.js" defer></script>
     <script src="../assets/js/SumMobileMoney.js" defer></script>
+    <script src="../assets/js/ListPaymentWithreception.js" defer></script>
+
+    <style>
+        #table-container {
+          display: none;
+          margin-top: 20px;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+          border: 1px solid #ccc;
+        }
+        th, td {
+          padding: 8px;
+          text-align: center;
+          border-bottom: 1px solid #ccc;
+        }
+        button {
+          padding: 2px 10px;
+          background-color: midnightblue;
+          font-size: 12px;
+          color: white;
+          border-radius: 15px;
+        }
+
+        #tableContainer {
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  #tableContainer table, th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  #overlayy {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 9999;
+  }
+  #miniTableContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+    z-index: 10000; /* Assure que la mini-table est au-dessus de l'overlay */
+  }
+  #closeBtn{
+    margin-left: 50%;
+  }
+
+      </style>
+
 </head>
 
 <body>
 	<div class="searchsection">
         <input type="text" name="search_bar" id="search_bar" placeholder="search false" onkeyup="searchFun()">
-        <button id="mobileMoneyButton">Mobile Money</button>
+        <button id="toggleButton">Mobile Money</button>
+        <button id="ButtonList">List Of Payment by receptionist</button>
     </div>
 
     <div class="roombooktable" class="table-responsive-xl">            
@@ -30,23 +103,45 @@
                         <th scope="col">Id</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Total_amount_status</th>
+                        <th scope="col">Total amount status</th>
                     </tr>
                 </thead>
     
                 <tbody id="table_body"></tbody>
             </table>
-            <div class="roombooktable" class="table-responsive-xl">            
-                <table class="table table-bordered" id="table-data">
-                    <thead>
-                        <tr>
-                            <th scope="col">Total_amount_status</th>
-                        </tr>
-                    </thead>
-            
-                    <tbody id="table_sum"></tbody>
-                </table>
+            <div id="overlay">
+                <div class="roombooktable" class="table-responsive-xl" id="miniTableContainer" >            
+                    <table class="table table-bordered" id="table-data">
+                        <thead>
+                            <tr>
+                                <th scope="col">Total Amount By Mobile Money</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_sum"></tbody>
+                        <button id="closeButton">Fermer</button>
+                    </table>
+                </div>
+              
             </div>
+           
+            <div id="overlayy">
+                <div class="roombooktable" class="table-responsive-xl" id="miniTableReceptionist">            
+                    <table class="table table-bordered" id="table-data">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID Payment</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody id="table_receptionist"></tbody>
+                        <button id="closeBtn">Fermer</button>
+                    </table>
+                </div>
+            </div>
+          
+
     </div>
 </body>
 
@@ -81,7 +176,31 @@
         }
     }
 }
+const toggleButton = document.getElementById('toggleButton');
+  const overlay = document.getElementById('overlay');
+  const miniTableContainer = document.getElementById('miniTableContainer');
+  const closeButton = document.getElementById('closeButton');
 
+  toggleButton.addEventListener('click', () => {
+    overlay.style.display = 'block';
+  });
+
+  closeButton.addEventListener('click', () => {
+    overlay.style.display = 'none';
+  });
+
+  const toggle = document.getElementById('ButtonList');
+  const over = document.getElementById('overlayy');
+  const mini = document.getElementById('miniTableReceptionist');
+  const closeBtn = document.getElementById('closeBtn');
+
+  toggle.addEventListener('click', () => {
+    over.style.display = 'block';
+  });
+
+  closeBtn.addEventListener('click', () => {
+    over.style.display = 'none';
+  });
 
 </script>
 

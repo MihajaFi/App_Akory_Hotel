@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- sweet alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="../assets/js/showAllStaff.js" defer></script>
-    <script src="../assets/js/addStaff.js" defer></script>
+    <script src="../assets/js/showAllClient.js" defer></script>
+    <script src="../assets/js/addClientByAdmin.js" defer></script>
+    <script src="../assets/js/clientDropdown.js"defer></script>
     <link rel="stylesheet" href="../../Admin/assets/css/staff.css">
     <title>Akory - Admin</title>
     <style>
@@ -31,27 +32,29 @@
 <div id="guestdetailpanel">
     <form action="" method="POST" class="guestdetailpanelform" id="staffSignup">
         <div class="head">
-            <h3>STAFF</h3>
+            <h3>CLIENT</h3>
             <i class="fa-solid fa-circle-xmark" onclick="addstaffclose()"></i>
         </div>
         <div class="middle">
             <div class="guestinfo">
                 <h4>Guest information</h4>
-                <input type="text" name="Name" id="Name" placeholder="Enter First name" required>
-                <input type="text" name="LastName" id="LastName" placeholder="Enter Last name" required>
-                <input type="email" name="Email" id="Email" placeholder="Enter Email" required>
-                <input type="tel" name="Phone" id="Phone" placeholder="Enter your phone number" required>
-                <select type="number" name="Country" class="selectinput" id="Country">
-                    <option value="" selected>Choose your country</option>
-                    <option value="1">Antananarivo</option>
-                    <option value="2">Antsiranana</option>
-                    <option value="3">Fianarantsoa</option>
-                    <option value="4">Mahajanga</option>
-                    <option value="5">Toamasina</option>
-                    <option value="6">Toliara</option>
+                <input type="text" name="FirstName" id="FirstName" placeholder="Enter client first name">
+                <input type="text" name="LastName" id="LastName" placeholder="Enter client last name">
+                <input type="email" name="Email" id="Email" placeholder="Enter client Email">
+                <select name="Gender" class="selectinput" id="Gender">
+                  <option value selected>Choose client gender</option>
+                  <option value="H">Man</option>
+                  <option value="F">Woman</option>
                 </select>
-                <input type="password" name="Password" id="Password" placeholder="Enter Your password" required>
-                <input type="password" name="CPassword" id="CPassword" placeholder="Confirm your password" required>
+                <input type="text" name="Cin" id="Cin" placeholder="Enter client CIN number">
+                <input type="text" name="Address" id="Address" placeholder="Enter client address">
+                <input type="tel" name="Phone" id="Phone" placeholder="Enter client phone number">
+                <input type="tel" name="EmergePhone" id="EmergePhone" placeholder="Enter an emergence phone number">
+                <select name="Employee" class="selectinput" id="Employee">
+                    <option value="" selected>Receptionist name</option>
+                </select>
+                <input type="password" name="password" id="password" placeholder="Enter client password">
+                <input type="password" name="Cpassword" id="Cpassword" placeholder="Confirm client password">
             </div>
         </div>
         <br>
@@ -78,8 +81,6 @@
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone</th>
-                <th scope="col">Hotel</th>
-                <th scope="col">Province</th>
                 <th scope="col">Action</th>
             </tr>
         </thead><tbody id="table_body"></tbody>

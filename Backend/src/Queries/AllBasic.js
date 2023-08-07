@@ -51,10 +51,10 @@ const getPaymentByMobileMoney = `
         WHERE payment_method.mobile_money = true; 
 ` ; 
 const getstatuscountreserved = `
-SELECT client.first_name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
-  FROM client
-  INNER JOIN reservation ON  client.id_client = reservation.id_client
-  GROUP BY client.id_client;
+        SELECT client.first_name,client.last_name, COUNT(reservation.id_reservation) AS reservation_count
+        FROM client
+        INNER JOIN reservation ON  client.id_client = reservation.id_client
+        GROUP BY client.id_client;
 `
 
 const getCountReservationByHotel = `
@@ -91,12 +91,19 @@ const getHotelRoomAvailable = `
         NOT (rv.date_arrived <= '2023-08-15' AND rv.leaving_date >= '2023-08-10')
         GROUP BY h.hotel_name, h.id_hotel;
 `
+
 const getRoomPricePricereduction = `
         select room.room_type,price.cost_per_night,promotion.percent 
         ,price.cost_per_night-((promotion.percent*price.cost_per_night)/100) 
         as price_actuelle from room inner join price on room.id_room=price.id_room
         inner join promotion on room.id_promotion=promotion.id_promotion where 
         current_date>promotion.begin_date and current_date<promotion.end_date;
+        `
+
+const getListOfPaymentWithNameOfReceptionist = `
+        select payment.id_payment, receptionist.first_name, receptionist.last_name
+        from payment inner join receptionist on
+        payment.id_employee = receptionist.id_employee;
 `
 
 const AllBasic = {
@@ -113,6 +120,7 @@ const AllBasic = {
     getstatuscountreserved,
     getHotelRoomAvailable,
     getRoomPricePricereduction,
+    getListOfPaymentWithNameOfReceptionist
 };
 
 export default AllBasic;
