@@ -84,7 +84,6 @@ router.post("/home", (req, res) => {
   }
 });
 
-
 router.post('/guestdetailsubmit', (req, res) => {
   const {
     date_arrived,
@@ -295,6 +294,7 @@ router.get("/canceled", (req, res) => {
     res.send(data.rows);
   });
 });
+
 router.get("/Receptionist",(req,res)=>{
   pool.query(AllBasic.getListOfPaymentWithNameOfReceptionist,(err,data)=>{
     if(err){
@@ -327,7 +327,6 @@ router.get("/statusreserved",(req,res)=>{
   })
 })
 
-
 // Count hotel reservation
 router.get("/hotelReservation",(req,res)=>{
   pool.query(AllBasic.getCountReservationByHotel,(err,data)=>{
@@ -339,18 +338,18 @@ router.get("/hotelReservation",(req,res)=>{
   });
 });
 
-
 //create roombook
 router.post("/roombook", (req, res) => {
   const {
-    DArrived,DLeaved,number_of_person,id_client
+    DArrived,DLeaved,number_of_person,id_client,typeroom
   } = req.body;
 
   if (number_of_person === '' || DArrived === '' || DLeaved === '') {
     res.status(400).json({ message: 'Fill the proper details' });
   }else{
-    const sql = `INSERT INTO reservation ("date_arrived", "leaving_date", "number_of_person", "id_client")
-    VALUES ('${DArrived}','${DLeaved}',${number_of_person},${id_client});`;
+    const sql = `INSERT INTO reservation 
+    ("date_arrived", "leaving_date", "number_of_person", "id_client", "room_type")
+    VALUES ('${DArrived}','${DLeaved}',${number_of_person},${id_client},'${typeroom}');`;
   
     pool.query(sql, (error, result) => {
       if (error) {
@@ -576,7 +575,6 @@ router.delete("/room/:id", (req, res) => {
   });
 });
 
-
 // show room by number room 
 router.get("/room/:room_numberId", (req, res) => {
   const roomNumber = req.params.room_numberId;
@@ -591,4 +589,40 @@ router.get("/room/:room_numberId", (req, res) => {
     }
     res.send(data.rows);
   });
+});
+
+// home client dropdown
+router.get("/ClientName", (req, res) => {
+  const sql = `SELECT id_client, first_name, last_name from client;`;
+  pool.query(sql, (err, data) => {
+      if (err) {
+          console.error(err.message);
+          return res.status(500).send('Erreur de serveur');
+      }
+      res.send(data.rows);
+    })
+});
+
+// insert roombook by client
+router.post("/guestdetailsubmitinfores", (req, res) => {
+  const {
+    cin,cout,PersNbr,ClientName,RoomType
+  } = req.body;
+
+  if (cin === '' || cout === '' || RoomType === '') {
+    res.status(400).json({ message: 'Fill the proper details' });
+  }else{
+    const sql = `INSERT INTO reservation 
+    ("date_arrived", "leaving_date", "number_of_person", "id_client", "room_type")
+    VALUES ('${cin}','${cout}',${PersNbr},${ClientName},'${RoomType}');`;
+  
+    pool.query(sql, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Add room successful' });
+      }
+    });
+    }
 });
