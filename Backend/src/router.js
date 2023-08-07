@@ -361,7 +361,7 @@ router.post("/CreateRoom", (req, res) => {
 // Get all rooms
 router.get("/room", (req, res) => {
   const queryRoom = `
-    SELECT "room_number", room_type, capacity_room FROM room;
+    SELECT id_room , "room_number", room_type, capacity_room FROM room ORDER BY room_number ASC ;
   `;
   pool.query(queryRoom, (err, data) => {
     if (err) {
@@ -399,6 +399,40 @@ router.get("/CreateRoom", (req, res) => {
   pool.query(query, (err, data) => {
     if (err) {
       console.error(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
+
+// Supprimer une chambre
+router.delete("/room/:id", (req, res) => {
+  const roomId = req.params.id;
+
+  const sql = `DELETE FROM room WHERE id_room = $1;`;
+  const values = [roomId];
+
+  pool.query(sql, values, (error, result) => {
+    if (error) {
+      console.error('Error executing query:', error);
+      res.status(500).json({ message: 'Something went wrong' });
+    } else {
+      res.status(200).json({ message: 'Delete successful' });
+    }
+  });
+});
+
+
+// show room by number room 
+router.get("/room/:room_numberId", (req, res) => {
+  const roomNumber = req.params.room_numberId;
+
+  const sql = `SELECT * FROM room WHERE room_number LIKE $1 || '%' LIMIT 8;`;
+  const values = [roomNumber];
+
+  pool.query(sql, values, (error, data) => {
+    if (error) {
+      console.error(error.message);
       return res.status(500).send('Erreur de serveur');
     }
     res.send(data.rows);
