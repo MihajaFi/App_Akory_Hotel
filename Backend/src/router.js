@@ -474,9 +474,6 @@ router.get("/CreateRoom", (req, res) => {
       (SELECT ARRAY_AGG(hotel_name) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
       (SELECT ARRAY_AGG(name) FROM promotion WHERE id_promotion IS NOT NULL) as promotions;
   `;
-
-  pool.query(query, (err, data) => {
-
   pool.query(AllBasic.getAllIdReservation, (err, data) => {
 
     if (err) {

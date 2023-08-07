@@ -15,6 +15,15 @@ CREATE TABLE hotel (
     hotel_name varchar(200) NOT NULL,
     address    varchar(200) NOT NULL
 );
+-- Insertion dans la table "hotel" pour chaque province
+INSERT INTO hotel (hotel_name, "address") VALUES
+    ('Akory Hotel Antananarivo', '123 Rue Antananarivo'),
+    ('Akory Hotel Antsiranana', '222 Rue Antsiranana'),
+    ('Akory Hotel Fianarantsoa', '101 Rue Fianarantsoa'),
+    ('Akory Hotel Mahajanga', '789 Rue Mahajanga'),
+    ('Akory Hotel Toamasina', '456 Rue Toamasina'),
+    ('Akory Hotel Toliara', '111 Rue Toliara');
+
 
 CREATE TABLE province_available (
     id_province   serial PRIMARY KEY,
@@ -22,7 +31,14 @@ CREATE TABLE province_available (
     code_province int,
     id_hotel int REFERENCES hotel(id_hotel)
 );
-
+INSERT INTO province_available (province_name, code_province, id_hotel)
+VALUES
+    ('Antananarivo', 101, 1),
+    ('Antsiranana', 201, 2),
+    ('Fianarantsoa', 301, 3),
+    ('Mahajanga', 401, 4),
+    ('Toamasina', 501, 5),
+    ('Toliara', 601, 6);
 CREATE TABLE receptionist (
     id_employee  serial PRIMARY KEY,
     first_name   varchar(200) NOT NULL,
@@ -32,6 +48,11 @@ CREATE TABLE receptionist (
     work_contact VARCHAR(50) NOT NULL,
     id_province int REFERENCES province_available(id_province)
 );
+
+INSERT INTO receptionist (first_name, last_name, password, email, work_contact, id_province)
+VALUES
+    ('Admin', 'Admin', '1234', 'Admin@gmail.com', 0346801859, 1);
+
 
 CREATE TABLE client (
     id_client         serial PRIMARY KEY,
@@ -70,6 +91,13 @@ CREATE TABLE promotion (
     percent      int NOT NULL
 );
 
+
+INSERT INTO promotion ("name", begin_date, end_date, percent)
+VALUES
+    ('Summer Sale', '2023-08-01', '2023-08-31', 20),
+    ('Winter Promotion', '2023-12-01', '2023-12-31', 15),
+    ('Spring Special', '2023-04-01', '2023-04-30', 25);
+
 CREATE TABLE room_features (
     id_features    serial PRIMARY KEY,
     sea_view       boolean NOT NULL,
@@ -80,6 +108,12 @@ CREATE TABLE room_features (
     mini_bar       boolean NOT NULL,
     flat_screen    boolean NOT NULL
 );
+
+INSERT INTO room_features (sea_view, VIP_category, hot_water, wifi_available, room_service, mini_bar, flat_screen)
+VALUES
+    (true, false, true, true, true, false, true),
+    (false, true, true, true, true, true, true),
+    (true, true, true, true, false, true, true);
 
 CREATE TABLE room (
     id_room serial PRIMARY KEY,
@@ -92,6 +126,10 @@ CREATE TABLE room (
     id_hotel int REFERENCES hotel(id_hotel)
 );
 
+INSERT INTO room (room_number, room_type, capacity_room, id_reservation, id_promotion, id_features, id_hotel)
+VALUES
+    ('101', 'Standard', 2, 1, 1, 1, 1),
+('202', 'Deluxe', 3, 10, 2, 2, 2);
 
 CREATE TABLE have (
     id_room int REFERENCES room(id_room),
