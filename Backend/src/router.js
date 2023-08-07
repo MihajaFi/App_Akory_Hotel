@@ -388,10 +388,7 @@ router.post("/CreateRoom", (req, res) => {
 
 // Get all rooms
 router.get("/room", (req, res) => {
-  const queryRoom = `
-    SELECT id_room , "room_number", room_type, capacity_room FROM room ORDER BY room_number ASC ;
-  `;
-  pool.query(queryRoom, (err, data) => {
+  pool.query(AllBasic.getAllRooms, (err, data) => {
     if (err) {
       console.error(err.message);
       return res.status(500).send('Erreur de serveur');
@@ -414,8 +411,7 @@ router.get("/room", (req, res) => {
 
 // dropdown
 router.get("/addroombook", (req, res) => {
-  const sql = `SELECT id_client, first_name, last_name from client;`;
-  pool.query(sql, (err, data) => {
+  pool.query(AllBasic.getDropDownAddRoombook, (err, data) => {
       if (err) {
           console.error(err.message);
           return res.status(500).send('Erreur de serveur');
@@ -426,15 +422,7 @@ router.get("/addroombook", (req, res) => {
 
 // Show all id_reservation 
 router.get("/CreateRoom", (req, res) => {
-  const query = `
-    SELECT
-      (SELECT ARRAY_AGG(id_reservation) FROM reservation) as reservations,
-      (SELECT ARRAY_AGG(id_hotel) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
-      (SELECT ARRAY_AGG(id_promotion) FROM promotion WHERE id_promotion IS NOT NULL) as promotions,
-      (SELECT ARRAY_AGG(id_features) FROM room_features WHERE id_features IS NOT NULL) as room_features;
-  `;
-
-  pool.query(query, (err, data) => {
+  pool.query(AllBasic.getAllIdReservation, (err, data) => {
     if (err) {
       console.error(err.message);
       return res.status(500).send('Erreur de serveur');
@@ -470,8 +458,7 @@ router.post("/guestdetailsubmitinfo", (req, res) =>{
 
 // show all client 
 router.get("/client", (req, res) => {
-  const sql = `SELECT id_client,first_name || ' ' || last_name AS client_name , email, principal_contact FROM client;`;
-  pool.query(sql, (err, data) => {
+  pool.query(AllBasic.getAllCustomer, (err, data) => {
       if (err) {
           console.error(err.message);
           return res.status(500).send('Erreur de serveur');
@@ -482,8 +469,7 @@ router.get("/client", (req, res) => {
 
 // dropdown client
 router.get("/addclient", (req, res) => {
-  const sql = `SELECT id_employee, first_name, last_name from receptionist;`;
-  pool.query(sql, (err, data) => {
+  pool.query(AllBasic.getDropdownClient, (err, data) => {
       if (err) {
           console.error(err.message);
           return res.status(500).send('Erreur de serveur');
@@ -578,11 +564,8 @@ router.delete("/room/:id", (req, res) => {
 // show room by number room 
 router.get("/room/:room_numberId", (req, res) => {
   const roomNumber = req.params.room_numberId;
-
-  const sql = `SELECT * FROM room WHERE room_number LIKE $1 || '%' LIMIT 8;`;
   const values = [roomNumber];
-
-  pool.query(sql, values, (error, data) => {
+  pool.query(AllBasic.getRoomByNumberRoom, values, (error, data) => {
     if (error) {
       console.error(error.message);
       return res.status(500).send('Erreur de serveur');
@@ -593,7 +576,6 @@ router.get("/room/:room_numberId", (req, res) => {
 
 // home client dropdown
 router.get("/ClientName", (req, res) => {
-  const sql = `SELECT id_client, first_name, last_name from client;`;
   pool.query(sql, (err, data) => {
       if (err) {
           console.error(err.message);
@@ -626,3 +608,14 @@ router.post("/guestdetailsubmitinfores", (req, res) => {
     });
     }
 });
+// show total Amount Status
+
+router.get('/totalAmountStatus',(req,res)=>{
+  pool.query(AllBasic.getAllpaymentByClient,(err,data)=>{
+    if(err){
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+})
