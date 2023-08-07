@@ -467,16 +467,6 @@ router.get("/addroombook", (req, res) => {
 
 // Show all id_reservation 
 router.get("/CreateRoom", (req, res) => {
-
-  const query = `
-    SELECT
-      (SELECT  ARRAY_AGG(client.first_name || ' ' || client.last_name) FROM reservation inner join client ON reservation.id_client = client.id_client ) as reservations,
-      (SELECT ARRAY_AGG(hotel_name) FROM hotel WHERE id_hotel IS NOT NULL) as hotels,
-      (SELECT ARRAY_AGG(name) FROM promotion WHERE id_promotion IS NOT NULL) as promotions;
-  `;
-
-  pool.query(query, (err, data) => {
-
   pool.query(AllBasic.getAllIdReservation, (err, data) => {
 
     if (err) {
