@@ -249,6 +249,15 @@ font-size: 30px;
 .bookbtn{
    margin: 10px;
 }
+#chambres{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#listchbr{
+ position: absolute;
+  right: 0;
+}
 
 /* roombookcss */
 

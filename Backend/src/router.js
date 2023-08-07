@@ -84,6 +84,44 @@ router.post("/home", (req, res) => {
   }
 });
 
+
+router.post('/guestdetailsubmit', (req, res) => {
+  const {
+    date_arrived,
+    leaving_date,
+    number_of_person,
+    id_client,
+  } = req.body;
+
+  if (date_arrived === '' || leaving_date === '' || id_client === '') {
+    res.status(400).json({ message: 'Fill the proper details' });
+  } else {
+
+    const sql = `INSERT INTO roombook("Name","Email","Country","Phone","RoomType","Bed","NoofRoom","Meal","cin","cout") 
+                 VALUES ('${Name}','${Email}','${Country}','${Phone}','${RoomType}','${Bed}','${NoofRoom}','${Meal}','${cin}','${cout}')`;
+
+    pool.query(sql, (error, result) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        res.status(500).json({ message: 'Something went wrong' });
+      } else {
+        res.status(200).json({ message: 'Reservation successful' });
+      }
+    });
+  }
+});
+
+//show all room with your price and reduction
+router.get("/listroom", (req,res) => {
+  pool.query(AllBasic.getRoomPricePricereduction, (err,data) =>{
+    if(err){
+      console.error(err.message);
+      return res.status(500).send('Erreur de serveur')
+    }
+    res.send(data.rows);
+  })
+})
+
 // show all booking 
 router.get("/roombook", (req, res) => {
  
@@ -283,6 +321,7 @@ router.get("/statusreserved",(req,res)=>{
       console.log(err.message);
       return res.status(500).send('Erreur de serveur');
     }
+    
     res.send(data.rows)
   })
 })

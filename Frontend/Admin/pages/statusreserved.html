@@ -23,8 +23,8 @@
         <table class="table table-bordered" id="table-data">
             <thead>
                 <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Last_Name</th>
+                    <th scope="col">Name client</th>
+                    <th scope="col">Last_Name client</th>
                     <th scope="col">Number of reservation</th>
                     
                 </tr>
@@ -34,4 +34,35 @@
         </table>
     </div>
 </body>
+<script>
+    const searchFun = () => {
+    let filter = document.getElementById('search_bar').value.trim().toUpperCase(); // Utiliser trim() pour supprimer les espaces au début et à la fin
+    let myTable = document.getElementById("table-data");
+    let tr = myTable.getElementsByTagName('tr');
+
+    for (let i = 0; i < tr.length; i++) {
+        let td = tr[i].getElementsByTagName('td')[0];
+        let tdStatus = tr[i].getElementsByTagName('td')[2];
+
+        if (td) {
+            let textValue = td.textContent || td.innerHTML;
+            let statusValue = tdStatus.textContent || tdStatus.innerHTML;
+
+            if (filter === "FALSE") { // Vérifier si le filtre est égal à "FALSE" spécifiquement
+                if (statusValue.toUpperCase() === "FALSE") {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            } else { // Si le filtre n'est pas "FALSE", effectuer la recherche normale
+                if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+}
+</script>
 </html>

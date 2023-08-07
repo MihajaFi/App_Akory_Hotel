@@ -4,7 +4,7 @@ function Sum(data) {
     data.map((values)=> {
         let dataInitial = "";
         dataInitial += `<tr>
-        <td>${values.total_mobile_money_payments}</td>
+        <td>${values.total_mobile_money_payments}<span><p>Ar</p></span></td>
     </tr>`;
     body_table.innerHTML += dataInitial;
     });
