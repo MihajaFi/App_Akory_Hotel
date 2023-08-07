@@ -445,7 +445,7 @@ router.get("/CreateRoom", (req, res) => {
 });
 
 // insert client by client
-router.post("/infoClient", (req, res) =>{
+router.post("/guestdetailsubmitinfo", (req, res) =>{
   const {
     FirstName,LastName,Email,Phone,EmergePhone,
     Gender,Cin,Address,password

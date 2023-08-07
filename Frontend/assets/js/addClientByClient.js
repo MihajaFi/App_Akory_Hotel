@@ -12,8 +12,9 @@ function AddClient(data) {
         password : formData.get('password'),
         Cpassword : formData.get('Cpassword')
     };
+    console.log(FirstName);
 
-    fetch("http://localhost:5000/home", {
+    fetch("http://localhost:5000/guestdetailsubmitinfo", {
         method : "POST",
         headers : {
             "Content-Type":"application/json",
@@ -43,7 +44,7 @@ const Address = document.getElementById('Address');
 const Password = document.getElementById('password');
 const Cpassword = document.getElementById('Cpassword');
 
-document.getElementById('getInfo').addEventListener("submit", function(event){
+document.getElementById('infoClient').addEventListener("submit", function(event){
     event.preventDefault();
     AddClient(event.target)
 
