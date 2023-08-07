@@ -38,6 +38,13 @@
                     <select name="Country" class="selectinput" id="Country">
                         <option value="" selected>Select client name</option>
                     </select>
+                    <select name="roomType" class="selectinput" id="roomType">
+                        <option value selected>Type of room</option>
+                        <option value="Superior Room">SUITE ROOM</option>
+                        <option value="Deluxe Room">DELUXE ROOM</option>
+                        <option value="Guest Room">GUEST ROOM</option>
+                        <option value="Single Room">SINGLE ROOM</option>
+                    </select>
                 </div>
             </div>
             <div class="footer">
@@ -48,7 +55,7 @@
 
         <!-- ================================================= -->
         <div class="searchsection">
-            <input type="text" name="search_bar" id="search_bar" placeholder="search...(id or name)" onkeyup="searchFun()">
+            <input type="text" name="search_bar" id="search_bar" placeholder="search id or name or room type" onkeyup="searchFun()">
             <button class="adduser" id="adduser" onclick="adduseropen()"><i class="fa-solid fa-bookmark"></i> Add</button>
             <form action="" method="post">
                 <button class="exportexcel" id="exportexcel" name="exportexcel" type="submit"><i class="fa-solid fa-file-arrow-down"></i></button>
@@ -66,6 +73,7 @@
                         <th scope="col">Check-Out</th>
                         <th scope="col">Number of person</th>
                         <th scope="col">CIN</th>
+                        <th scope="col">Room type reserved</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
