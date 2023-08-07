@@ -299,6 +299,7 @@ router.get("/Receptionist",(req,res)=>{
   });
 });
 
+// get Sum Mobile Money
 router.get("/Sum", (req, res) => {
   pool.query(AllBasic.getPaymentByMobileMoney, (err, data) => {
     if (err) {
@@ -319,6 +320,16 @@ router.get("/statusreserved",(req,res)=>{
   })
 })
 
+// Count hotel reservation
+router.get("/hotelReservation",(req,res)=>{
+  pool.query(AllBasic.getCountReservationByHotel,(err,data)=>{
+    if(err){
+      console.log(err.message);
+      return res.status(500).send('Erreur de serveur');
+    }
+    res.send(data.rows);
+  });
+});
 
 //create roombook
 
