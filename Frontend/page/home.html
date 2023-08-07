@@ -361,25 +361,50 @@
     </div>
 
     </section>
-  
-    <section id="thirdsection">
-      <h1 class="head">≼ Our service ≽</h1>
-      <div class="facility">
-        <div class="box Swiming-pool">
-          <h2>Swiming pool</h2>
+  <section id="thirdsection">
+    <h1 class="head">≼ Our service ≽</h1>
+    <div class="divCarousel">
+      <input type="radio" name="position"  />
+      <input type="radio" name="position" />
+      <input type="radio" name="position" checked/>
+      <input type="radio" name="position" />
+      <input type="radio" name="position" />
+      <main id="carousel" class="facility">
+        <div class="item box Swiming-pool"><h2>Swiming pool</h2></div>
+        <div class="item box spa"><h2>Spa</h2></div>
+        <div class="item box resto"> <h2>24*7 Resto</h2></div>
+        <div class="item box gym">  <h2>24*7 Gym</h2></div>
+        <div class="item box Heli"><h2>Heli service</h2></div>
+        <main>
+    </div>
+  </section>
+
+  <section class="contact" id="#contactus">
+    <h2>Contact Us</h2>
+    <form action="#" method="POST">
+      <label for="name">Name :</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Mail :</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Message :</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Send</button>
+    </form>
+   </section>
+
+
+  <section class="footers" style="margin-top: 5cm;">
+      <footer class="footer">
+        <div class="waves">
+          <div class="wave" id="wave1"></div>
+          <div class="wave" id="wave2"></div>
+          <div class="wave" id="wave3"></div>
+          <div class="wave" id="wave4"></div>
         </div>
-        <div class="box spa">
-          <h2>Spa</h2>
-        </div>
-        <div class="box resto">
-          <h2>24*7 Resto</h2>
-        </div>
-        <div class="box gym">
-          <h2>24*7 Gym</h2>
-        </div>
-        <div class="box Heli">
-          <h2>Heli service</h2>
-        </div>
+
       </div>
     </section>
   
@@ -392,6 +417,45 @@
       <div class="createdby">
         <h5>Akory Hotel</h5>
       </div>
+
+        <ul class="social-icon">
+          <li class="social-icon__item"><a class="social-icon__link" href="#">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a></li>
+          <li class="social-icon__item"><a class="social-icon__link" href="#">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a></li>
+          <li class="social-icon__item"><a class="social-icon__link" href="#">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a></li>
+          <li class="social-icon__item"><a class="social-icon__link" href="#">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a></li>
+        </ul>
+        <ul class="menu">
+          <li class="menu__item"><a class="menu__link" href="#firstsection">Home</a></li>
+          <li class="menu__item"><a class="menu__link" href="#secondsection">Rooms</a></li>
+          <li class="menu__item"><a class="menu__link" href="#thirdsection">Services</a></li>
+          <li class="menu__item"><a class="menu__link" href="#contactus">Contact</a></li>
+        </ul>
+        <p>&copy;2023 AKORY Hotel | All Rights Reserved</p>
+      </footer>
+   
     </section>
-  </body>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  </body>  
+  <script>
+  
+      var bookbox = document.getElementById("guestdetailpanel");
+  
+      openbookbox = () =>{
+        bookbox.style.display = "flex";
+      }
+      closebox = () =>{
+        bookbox.style.display = "none";
+      }
+  </script>
 </html>
