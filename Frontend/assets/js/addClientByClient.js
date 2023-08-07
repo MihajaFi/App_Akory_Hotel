@@ -12,7 +12,6 @@ function AddClient(data) {
         password : formData.get('password'),
         Cpassword : formData.get('Cpassword')
     };
-    console.log(FirstName);
 
     fetch("http://localhost:5000/guestdetailsubmitinfo", {
         method : "POST",
@@ -23,7 +22,8 @@ function AddClient(data) {
     })
     .then((response) => {
         if (response.ok) {
-          alert('Inserted successfully')
+          alert('Inserted successfully');
+          window.location.reload()
         } else {
           throw new Error("Erreur lors de l'insertion");
         }

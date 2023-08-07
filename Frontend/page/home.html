@@ -89,7 +89,7 @@
                 <input type="tel" name="EmergePhone" id="EmergePhone" placeholder="Enter an emergence phone number">
                 <input type="password" name="password" id="password" placeholder="Enter your password">
                 <input type="password" name="Cpassword" id="Cpassword" placeholder="Confirm your password">
-                <button class="btn btn-success" name="guestdetailsubmitinfo" type="submit">OK</button>
+                <button class="btn btn-success" name="guestdetailsubmitinfo" type="submit">Register</button>
               </form>
                 
             </div>
@@ -120,13 +120,13 @@
                         <input name="cout" id="cout" type ="date">
                     </span>
                   </div>
-                  <button class="btn btn-success" name="guestdetailsubmitinfores" type="submit">OK</button>
+                  <button class="btn btn-success" name="guestdetailsubmitinfores" type="submit">Booked</button>
                 </form>
                 <div></div>
             </div>
         </div>
         <div class="footer">
-            <button class="btn btn-success" name="guestdetailsubmit" type="reset">Submit</button>
+            <button class="btn btn-success" name="guestdetailsubmit" type="reset" onclick="closebox()">Terminate</button>
         </div>
         </div>
       </div>
@@ -341,7 +341,7 @@
           <div class="hotelphoto h1"></div>
           <div class="roomdata">
             <h2>Room VIP</h2>
-            <button class="btn btn-primary bookbtn" onclick="openbookbox()">Book</button>
+            <button class="btn btn-primary bookbtn" id="show" onclick="openbookbox()">Book</button>
             <button class="btn btn-success bookbtn" onclick="openinfosuit()">Info</button>
           </div>
         </div>
