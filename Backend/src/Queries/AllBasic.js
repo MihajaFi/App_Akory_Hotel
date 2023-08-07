@@ -19,7 +19,7 @@ const getAllRecptionist = `
 ` ;
 
 const getAllReservation = `
-        select reservation.id_reservation , client.first_name || ' ' || client.last_name AS client_name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN
+        select reservation.id_reservation , client.first_name || ' ' || client.last_name AS client_name , client.email ,reservation.date_arrived ,reservation.number_of_person,reservation.leaving_date ,client.CIN, reservation.room_type
         from reservation 
         inner join client ON reservation.id_client = client.id_client ;
 ` ;
