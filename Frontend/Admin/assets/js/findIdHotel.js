@@ -1,5 +1,5 @@
 function AllIdHotel(data) {
-    const room = document.getElementById("id_hotel");
+    const room = document.getElementById("hotel_name");
     let dataOfRoom = "";
     
     data[0].hotels.forEach((id) => {

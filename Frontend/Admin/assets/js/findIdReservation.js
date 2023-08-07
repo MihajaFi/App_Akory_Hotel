@@ -1,5 +1,5 @@
 function AllIdReservation(data) {
-    const room = document.getElementById("id_reservation");
+    const room = document.getElementById("Client");
     let dataOfRoom = "";
     
     data[0].reservations.forEach((id) => {
