@@ -25,9 +25,8 @@ $(document).ready(function() {
     });
   });
 
-
-const liste = document.getElementById("listchbr");
-liste.addEventListener('click',function(event){
-      event.preventDefault
-      window.location.href="./listroom.html"
-}
+  history.pushState(null, null, location.href);
+  window.onpopstate = function(event) {
+    history.go(1);
+  };
+});
